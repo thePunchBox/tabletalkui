@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --app-bg: #020408;
+  --app-surface: rgba(10, 15, 25, 0.7);
+  --app-border: rgba(255, 255, 255, 0.1);
+  --text-heading: #FFFFFF;
+  --text-primary: #94A3B8;
+  --text-secondary: #64748B;
+  --text-disabled: #475569;
+  --accent-blue: #2563EB;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { border-color: var(--app-border); }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--app-bg);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 { color: var(--text-heading); }
+
+.bg-atmospheric {
+  background: 
+    radial-gradient(ellipse 50% 50% at 50% 0%, rgba(37, 99, 235, 0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 30%, rgba(139, 92, 246, 0.08), transparent),
+    var(--app-bg);
+}
+
+.glass-card {
+  background: var(--app-surface);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--app-border);
+  border-radius: 1rem;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 4px 24px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glass-card:hover {
+  border-color: #2563EB;
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.2);
+}
+
+.chat-bubble-user {
+  background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+  color: #FFFFFF;
+  border-radius: 1rem 1rem 0.25rem 1rem;
+}
+
+.chat-bubble-ai {
+  background: var(--app-surface);
+  backdrop-filter: blur(16px);
+  color: var(--text-primary);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 1rem 1rem 1rem 0.25rem;
+}
+
+.stats-card {
+  background: var(--app-surface);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--app-border);
+  border-radius: 1rem;
+  padding: 1.25rem;
 }
