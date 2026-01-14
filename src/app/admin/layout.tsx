@@ -16,15 +16,17 @@ import {
   ChevronRight,
   Bell,
   Search,
+  Gem,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const adminNavItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
   { icon: Users, label: "Users", href: "/admin/users" },
-  { icon: MessageSquare, label: "Inquiries", href: "/admin/inquiries" },
-  { icon: CreditCard, label: "Payments", href: "/admin/payments" },
   { icon: FileSpreadsheet, label: "Files", href: "/admin/files" },
+  { icon: CreditCard, label: "Payments", href: "/admin/payments" },
+  { icon: Gem, label: "Credits", href: "/admin/credits" },
+  { icon: MessageSquare, label: "Inquiries", href: "/admin/inquiries" },
   { icon: Settings, label: "Settings", href: "/admin/settings" },
 ];
 
