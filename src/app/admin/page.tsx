@@ -153,19 +153,19 @@ export default function AdminDashboardPage() {
           transition={{ delay: 0.4 }}
           className="lg:col-span-2"
         >
-          <Card className="p-6">
-            <div className="flex items-center justify-between mb-6">
+          <Card className="p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
               <div>
                 <h2 className="text-lg font-semibold text-slate-900">Revenue Overview</h2>
                 <p className="text-sm text-slate-600">Monthly revenue trends</p>
               </div>
-              <select className="px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-sm text-slate-700 focus:outline-none focus:border-vibrant-blue">
+              <select className="px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-sm text-slate-700 focus:outline-none focus:border-vibrant-blue w-full sm:w-auto">
                 <option>Last 6 months</option>
                 <option>Last year</option>
                 <option>All time</option>
               </select>
             </div>
-            <div className="h-[300px]">
+            <div className="h-[250px] sm:h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={revenueData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -205,9 +205,9 @@ export default function AdminDashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <Card className="p-6 h-full">
+          <Card className="p-4 sm:p-6">
             <h2 className="text-lg font-semibold text-slate-900 mb-6">Plan Distribution</h2>
-            <div className="h-[200px]">
+            <div className="h-[250px] sm:h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={planDistribution} layout="vertical">
                   <XAxis type="number" stroke="#64748B" fontSize={12} />
@@ -248,28 +248,29 @@ export default function AdminDashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <Card className="p-6">
+          <Card className="p-4 sm:p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold text-slate-900">Recent Users</h2>
               <Link href="/admin/users" className="text-sm text-vibrant-blue hover:underline flex items-center gap-1">
-                View all <ArrowUpRight className="w-4 h-4" />
+                <span className="hidden sm:inline">View all</span>
+                <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
             <div className="space-y-4">
               {recentUsers.map((user) => (
-                <div key={user.id} className="flex items-center justify-between py-3 border-b border-slate-200 last:border-0">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center">
+                <div key={user.id} className="flex items-center justify-between py-3 border-b border-slate-200 last:border-0 gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                    <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center flex-shrink-0">
                       <span className="text-sm font-semibold text-slate-900">
                         {user.name.split(" ").map(n => n[0]).join("")}
                       </span>
                     </div>
-                    <div>
-                      <p className="text-sm font-medium text-slate-900">{user.name}</p>
-                      <p className="text-xs text-slate-500">{user.email}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium text-slate-900 truncate">{user.name}</p>
+                      <p className="text-xs text-slate-500 truncate">{user.email}</p>
                     </div>
                   </div>
-                  <div className="text-right">
+                  <div className="text-right flex-shrink-0">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
                       user.plan === "Enterprise" ? "bg-deep-navy/10 text-deep-navy" :
                       user.plan === "Pro" ? "bg-vibrant-blue/10 text-vibrant-blue" :
@@ -277,7 +278,7 @@ export default function AdminDashboardPage() {
                     }`}>
                       {user.plan}
                     </span>
-                    <p className="text-xs text-slate-500 mt-1">{user.joined}</p>
+                    <p className="text-xs text-slate-500 mt-1 hidden sm:block">{user.joined}</p>
                   </div>
                 </div>
               ))}
@@ -291,22 +292,23 @@ export default function AdminDashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
         >
-          <Card className="p-6">
+          <Card className="p-4 sm:p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold text-slate-900">Recent Inquiries</h2>
               <Link href="/admin/inquiries" className="text-sm text-vibrant-blue hover:underline flex items-center gap-1">
-                View all <ArrowUpRight className="w-4 h-4" />
+                <span className="hidden sm:inline">View all</span>
+                <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {recentInquiries.map((inquiry) => (
-                <div key={inquiry.id} className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-slate-900">{inquiry.subject}</p>
-                      <p className="text-xs text-slate-500 mt-1">From: {inquiry.user}</p>
+                <div key={inquiry.id} className="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium text-slate-900 truncate">{inquiry.subject}</p>
+                      <p className="text-xs text-slate-500 mt-1 truncate">From: {inquiry.user}</p>
                     </div>
-                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${
+                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium flex-shrink-0 ${
                       inquiry.status === "open" ? "bg-error/10 text-error" :
                       inquiry.status === "pending" ? "bg-warning/10 text-warning" :
                       "bg-success/10 text-success"
@@ -314,18 +316,19 @@ export default function AdminDashboardPage() {
                       {inquiry.status === "open" && <AlertCircle className="w-3 h-3" />}
                       {inquiry.status === "pending" && <Clock className="w-3 h-3" />}
                       {inquiry.status === "resolved" && <CheckCircle className="w-3 h-3" />}
-                      {inquiry.status}
+                      <span className="hidden sm:inline">{inquiry.status}</span>
                     </span>
                   </div>
-                  <div className="flex items-center justify-between mt-3">
-                    <span className={`text-xs font-medium ${
+                  <div className="flex items-center justify-between mt-3 gap-2">
+                    <span className={`text-xs font-medium truncate ${
                       inquiry.priority === "high" ? "text-error" :
                       inquiry.priority === "medium" ? "text-warning" :
                       "text-slate-600"
                     }`}>
-                      {inquiry.priority.charAt(0).toUpperCase() + inquiry.priority.slice(1)} priority
+                      <span className="hidden sm:inline">{inquiry.priority.charAt(0).toUpperCase() + inquiry.priority.slice(1)} priority</span>
+                      <span className="sm:hidden">{inquiry.priority.charAt(0).toUpperCase() + inquiry.priority.slice(1)}</span>
                     </span>
-                    <span className="text-xs text-slate-500">{inquiry.time}</span>
+                    <span className="text-xs text-slate-500 flex-shrink-0">{inquiry.time}</span>
                   </div>
                 </div>
               ))}

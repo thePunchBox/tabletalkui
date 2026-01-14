@@ -144,10 +144,10 @@ export default function FilesPage() {
       >
         <Card className="overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[800px]">
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50">
-                  <th className="text-left p-4">
+                  <th className="text-left p-3 lg:p-4">
                     <input
                       type="checkbox"
                       checked={selectedFiles.length === filteredFiles.length && filteredFiles.length > 0}
@@ -155,13 +155,13 @@ export default function FilesPage() {
                       className="w-4 h-4 rounded border-slate-200 text-vibrant-blue focus:ring-vibrant-blue"
                     />
                   </th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">File Name</th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">Uploaded By</th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">Size</th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">Rows</th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">Queries</th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">Uploaded</th>
-                  <th className="text-right p-4 text-sm font-medium text-slate-600">Actions</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">File Name</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Uploaded By</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Size</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Rows</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Queries</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Uploaded</th>
+                  <th className="text-right p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -172,7 +172,7 @@ export default function FilesPage() {
                       index % 2 === 0 ? "bg-white" : "bg-slate-50/30"
                     }`}
                   >
-                    <td className="p-4">
+                    <td className="p-3 lg:p-4">
                       <input
                         type="checkbox"
                         checked={selectedFiles.includes(file.id)}
@@ -180,49 +180,49 @@ export default function FilesPage() {
                         className="w-4 h-4 rounded border-slate-200 text-vibrant-blue focus:ring-vibrant-blue"
                       />
                     </td>
-                    <td className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-vibrant-blue/10">
-                          <FileSpreadsheet className="w-5 h-5 text-vibrant-blue" />
+                    <td className="p-3 lg:p-4">
+                      <div className="flex items-center gap-2 lg:gap-3">
+                        <div className="p-1.5 lg:p-2 rounded-lg bg-vibrant-blue/10">
+                          <FileSpreadsheet className="w-4 h-4 lg:w-5 lg:h-5 text-vibrant-blue" />
                         </div>
-                        <span className="text-sm font-medium text-slate-900">{file.name}</span>
+                        <span className="text-xs lg:text-sm font-medium text-slate-900 truncate max-w-[120px] lg:max-w-none">{file.name}</span>
                       </div>
                     </td>
-                    <td className="p-4">
+                    <td className="p-3 lg:p-4">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center">
-                          <span className="text-xs font-semibold text-slate-900">
+                        <div className="w-6 h-6 lg:w-8 lg:h-8 rounded-full bg-slate-50 flex items-center justify-center flex-shrink-0">
+                          <span className="text-[10px] lg:text-xs font-semibold text-slate-900">
                             {file.user.split(" ").map(n => n[0]).join("")}
                           </span>
                         </div>
-                        <div>
-                          <p className="text-sm font-medium text-slate-900">{file.user}</p>
-                          <p className="text-xs text-slate-500">{file.email}</p>
+                        <div className="min-w-0">
+                          <p className="text-xs lg:text-sm font-medium text-slate-900 truncate">{file.user}</p>
+                          <p className="text-[10px] lg:text-xs text-slate-500 truncate hidden lg:block">{file.email}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="p-4">
-                      <span className="text-sm text-slate-700">{formatSize(file.size)}</span>
+                    <td className="p-3 lg:p-4">
+                      <span className="text-xs lg:text-sm text-slate-700">{formatSize(file.size)}</span>
                     </td>
-                    <td className="p-4">
-                      <span className="text-sm text-slate-700">{file.rows.toLocaleString()}</span>
+                    <td className="p-3 lg:p-4">
+                      <span className="text-xs lg:text-sm text-slate-700">{file.rows.toLocaleString()}</span>
                     </td>
-                    <td className="p-4">
-                      <span className="text-sm font-medium text-vibrant-blue">{file.queries}</span>
+                    <td className="p-3 lg:p-4">
+                      <span className="text-xs lg:text-sm font-medium text-vibrant-blue">{file.queries}</span>
                     </td>
-                    <td className="p-4">
-                      <span className="text-sm text-slate-600">{file.uploaded}</span>
+                    <td className="p-3 lg:p-4">
+                      <span className="text-xs lg:text-sm text-slate-600">{file.uploaded}</span>
                     </td>
-                    <td className="p-4">
-                      <div className="flex items-center justify-end gap-2">
-                        <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors" title="View File">
-                          <Eye className="w-4 h-4 text-slate-600" />
+                    <td className="p-3 lg:p-4">
+                      <div className="flex items-center justify-end gap-1 lg:gap-2">
+                        <button className="p-1.5 lg:p-2 hover:bg-slate-50 rounded-lg transition-colors" title="View File">
+                          <Eye className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-slate-600" />
                         </button>
-                        <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors" title="Download">
-                          <Download className="w-4 h-4 text-slate-600" />
+                        <button className="p-1.5 lg:p-2 hover:bg-slate-50 rounded-lg transition-colors" title="Download">
+                          <Download className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-slate-600" />
                         </button>
-                        <button className="p-2 hover:bg-error/10 rounded-lg transition-colors" title="Delete File">
-                          <Trash2 className="w-4 h-4 text-error" />
+                        <button className="p-1.5 lg:p-2 hover:bg-error/10 rounded-lg transition-colors" title="Delete File">
+                          <Trash2 className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-error" />
                         </button>
                       </div>
                     </td>
@@ -233,7 +233,7 @@ export default function FilesPage() {
           </div>
 
           {/* Pagination */}
-          <div className="flex items-center justify-between p-4 border-t border-slate-200">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 border-t border-slate-200">
             <p className="text-sm text-slate-600">
               Showing {filteredFiles.length} of {files.length} files
             </p>
@@ -242,8 +242,8 @@ export default function FilesPage() {
                 <ChevronLeft className="w-4 h-4 text-slate-600" />
               </button>
               <span className="px-3 py-1 rounded-lg bg-vibrant-blue text-white text-sm font-medium">1</span>
-              <button className="px-3 py-1 rounded-lg hover:bg-slate-50 text-sm text-slate-600 transition-colors">2</button>
-              <button className="px-3 py-1 rounded-lg hover:bg-slate-50 text-sm text-slate-600 transition-colors">3</button>
+              <button className="px-3 py-1 rounded-lg hover:bg-slate-50 text-sm text-slate-600 transition-colors hidden sm:inline-block">2</button>
+              <button className="px-3 py-1 rounded-lg hover:bg-slate-50 text-sm text-slate-600 transition-colors hidden sm:inline-block">3</button>
               <button className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
                 <ChevronRight className="w-4 h-4 text-slate-600" />
               </button>
@@ -257,18 +257,18 @@ export default function FilesPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-2xl"
         >
-          <Card className="px-6 py-3 flex items-center gap-4 shadow-lg">
-            <span className="text-sm text-slate-700">
+          <Card className="px-4 sm:px-6 py-3 flex flex-wrap items-center justify-center gap-2 sm:gap-4 shadow-lg">
+            <span className="text-xs sm:text-sm text-slate-700">
               {selectedFiles.length} file{selectedFiles.length > 1 ? "s" : ""} selected
             </span>
-            <div className="h-4 w-px bg-slate-200" />
-            <button className="text-sm text-vibrant-blue hover:underline">Download All</button>
-            <button className="text-sm text-error hover:underline">Delete All</button>
+            <div className="hidden sm:block h-4 w-px bg-slate-200" />
+            <button className="text-xs sm:text-sm text-vibrant-blue hover:underline">Download All</button>
+            <button className="text-xs sm:text-sm text-error hover:underline">Delete All</button>
             <button
               onClick={() => setSelectedFiles([])}
-              className="text-sm text-slate-600 hover:underline"
+              className="text-xs sm:text-sm text-slate-600 hover:underline"
             >
               Clear
             </button>

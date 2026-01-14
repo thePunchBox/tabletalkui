@@ -157,9 +157,9 @@ export default function CreditsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
       >
-        <Card className="p-6">
-          <h3 className="text-lg font-semibold text-slate-900 mb-4">Credit Usage Trend</h3>
-          <div className="h-[300px]">
+        <Card className="p-4 sm:p-6">
+          <h2 className="text-lg font-semibold text-slate-900 mb-4 sm:mb-6">Credits Usage Trend</h2>
+          <div className="h-[250px] sm:h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={usageData}>
                 <defs>
@@ -199,7 +199,7 @@ export default function CreditsPage() {
 
       {/* Filters */}
       <Card className="p-4">
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
             <input
@@ -210,11 +210,11 @@ export default function CreditsPage() {
               className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 placeholder:text-slate-500 focus:outline-none focus:border-vibrant-blue focus:ring-2 focus:ring-vibrant-blue/10 text-sm"
             />
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch gap-3 sm:w-auto w-full">
             <select
               value={filterPlan}
               onChange={(e) => setFilterPlan(e.target.value)}
-              className="px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm focus:outline-none focus:border-vibrant-blue"
+              className="px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm focus:outline-none focus:border-vibrant-blue w-full sm:w-auto"
             >
               <option value="all">All Plans</option>
               <option value="starter">Starter</option>
@@ -224,7 +224,7 @@ export default function CreditsPage() {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm focus:outline-none focus:border-vibrant-blue"
+              className="px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm focus:outline-none focus:border-vibrant-blue w-full sm:w-auto"
             >
               <option value="all">All Status</option>
               <option value="normal">Normal</option>
@@ -243,18 +243,18 @@ export default function CreditsPage() {
       >
         <Card className="overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[900px]">
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50">
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">User</th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">Plan</th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">Credits Limit</th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">Used</th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">Remaining</th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">Usage</th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">Status</th>
-                  <th className="text-left p-4 text-sm font-medium text-slate-600">Last Used</th>
-                  <th className="text-right p-4 text-sm font-medium text-slate-600">Actions</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">User</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Plan</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Limit</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Used</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Remaining</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Usage</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Status</th>
+                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600 hidden lg:table-cell">Last Used</th>
+                  <th className="text-right p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -270,14 +270,14 @@ export default function CreditsPage() {
                       transition={{ delay: index * 0.05 }}
                       className="border-b border-slate-100 hover:bg-slate-50/50 transition-colors"
                     >
-                      <td className="p-4">
-                        <div>
-                          <p className="font-medium text-slate-900">{user.name}</p>
-                          <p className="text-sm text-slate-500">{user.email}</p>
+                      <td className="p-3 lg:p-4">
+                        <div className="min-w-0">
+                          <p className="text-xs lg:text-sm font-medium text-slate-900 truncate">{user.name}</p>
+                          <p className="text-[10px] lg:text-xs text-slate-500 truncate hidden lg:block">{user.email}</p>
                         </div>
                       </td>
-                      <td className="p-4">
-                        <span className={`px-2.5 py-1 rounded-lg text-xs font-medium ${
+                      <td className="p-3 lg:p-4">
+                        <span className={`px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-lg text-[10px] lg:text-xs font-medium ${
                           user.plan === "Enterprise" ? "bg-purple-100 text-purple-700" :
                           user.plan === "Pro" ? "bg-vibrant-blue/10 text-vibrant-blue" :
                           "bg-slate-100 text-slate-600"
@@ -285,18 +285,18 @@ export default function CreditsPage() {
                           {user.plan}
                         </span>
                       </td>
-                      <td className="p-4">
-                        <span className="text-slate-900 font-medium">
+                      <td className="p-3 lg:p-4">
+                        <span className="text-xs lg:text-sm text-slate-900 font-medium">
                           {formatCredits(user.creditsLimit)}
                         </span>
                       </td>
-                      <td className="p-4">
-                        <span className="text-slate-700">
+                      <td className="p-3 lg:p-4">
+                        <span className="text-xs lg:text-sm text-slate-700">
                           {formatCredits(user.creditsUsed)}
                         </span>
                       </td>
-                      <td className="p-4">
-                        <span className={`font-medium ${
+                      <td className="p-3 lg:p-4">
+                        <span className={`text-xs lg:text-sm font-medium ${
                           remaining !== -1 && remaining < 5000 ? "text-error" :
                           remaining !== -1 && remaining < 20000 ? "text-warning" :
                           "text-slate-900"
@@ -304,10 +304,10 @@ export default function CreditsPage() {
                           {formatCredits(remaining)}
                         </span>
                       </td>
-                      <td className="p-4">
+                      <td className="p-3 lg:p-4">
                         {user.creditsLimit !== -1 ? (
-                          <div className="flex items-center gap-2">
-                            <div className="w-20 h-2 rounded-full bg-slate-200 overflow-hidden">
+                          <div className="flex items-center gap-1 lg:gap-2">
+                            <div className="w-12 lg:w-20 h-1.5 lg:h-2 rounded-full bg-slate-200 overflow-hidden">
                               <div 
                                 className={`h-full rounded-full ${
                                   usagePercent >= 90 ? "bg-error" :
@@ -317,34 +317,34 @@ export default function CreditsPage() {
                                 style={{ width: `${usagePercent}%` }}
                               />
                             </div>
-                            <span className="text-xs text-slate-500">{usagePercent}%</span>
+                            <span className="text-[10px] lg:text-xs text-slate-500">{usagePercent}%</span>
                           </div>
                         ) : (
-                          <span className="text-xs text-slate-500">N/A</span>
+                          <span className="text-[10px] lg:text-xs text-slate-500">N/A</span>
                         )}
                       </td>
-                      <td className="p-4">
-                        <span className={`px-2.5 py-1 rounded-lg text-xs font-medium inline-flex items-center gap-1 ${getStatusBadge(user.status)}`}>
-                          {user.status === "critical" && <AlertTriangle className="w-3 h-3" />}
-                          {getStatusText(user.status)}
+                      <td className="p-3 lg:p-4">
+                        <span className={`px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-lg text-[10px] lg:text-xs font-medium inline-flex items-center gap-1 ${getStatusBadge(user.status)}`}>
+                          {user.status === "critical" && <AlertTriangle className="w-2.5 h-2.5 lg:w-3 lg:h-3" />}
+                          <span className="hidden sm:inline">{getStatusText(user.status)}</span>
                         </span>
                       </td>
-                      <td className="p-4">
-                        <span className="text-sm text-slate-600">{user.lastUsed}</span>
+                      <td className="p-3 lg:p-4 hidden lg:table-cell">
+                        <span className="text-xs lg:text-sm text-slate-600">{user.lastUsed}</span>
                       </td>
-                      <td className="p-4">
-                        <div className="flex items-center justify-end gap-1">
-                          <button className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="View Details">
-                            <Eye className="w-4 h-4" />
+                      <td className="p-3 lg:p-4">
+                        <div className="flex items-center justify-end gap-0.5 lg:gap-1">
+                          <button className="p-1.5 lg:p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="View Details">
+                            <Eye className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                           </button>
-                          <button className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="Add Credits">
-                            <Plus className="w-4 h-4" />
+                          <button className="p-1.5 lg:p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="Add Credits">
+                            <Plus className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                           </button>
-                          <button className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="Reset Credits">
-                            <RefreshCw className="w-4 h-4" />
+                          <button className="p-1.5 lg:p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors hidden sm:block" title="Reset Credits">
+                            <RefreshCw className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                           </button>
-                          <button className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="Send Warning">
-                            <Mail className="w-4 h-4" />
+                          <button className="p-1.5 lg:p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors hidden sm:block" title="Send Warning">
+                            <Mail className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                           </button>
                         </div>
                       </td>
@@ -356,26 +356,28 @@ export default function CreditsPage() {
           </div>
 
           {/* Pagination */}
-          <div className="flex items-center justify-between p-4 border-t border-slate-200">
-            <p className="text-sm text-slate-600">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 lg:p-4 border-t border-slate-200">
+            <p className="text-xs lg:text-sm text-slate-600">
               Showing {filteredUsers.length} of {userCredits.length} users
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 lg:gap-2">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
+                className="p-1.5 lg:p-2"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
               </Button>
-              <span className="text-sm text-slate-600 px-3">Page {currentPage}</span>
+              <span className="text-xs lg:text-sm text-slate-600 px-2 lg:px-3">Page {currentPage}</span>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setCurrentPage(p => p + 1)}
+                className="p-1.5 lg:p-2"
               >
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
               </Button>
             </div>
           </div>

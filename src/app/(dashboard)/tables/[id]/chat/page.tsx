@@ -128,17 +128,26 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
   };
 
   return (
-    <div className="flex h-[calc(100vh-64px)] -m-4 lg:-m-6">
+    <div className="flex h-[calc(100vh-64px)] -m-4 sm:-m-6">
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+      
       {/* Chat History Sidebar */}
       <AnimatePresence>
         {sidebarOpen && (
           <motion.aside
-            initial={{ width: 0, opacity: 0 }}
-            animate={{ width: 280, opacity: 1 }}
-            exit={{ width: 0, opacity: 0 }}
-            className="h-full bg-white border-r border-slate-200 flex-shrink-0 overflow-hidden"
+            initial={{ x: -280 }}
+            animate={{ x: 0 }}
+            exit={{ x: -280 }}
+            transition={{ type: "tween", duration: 0.3 }}
+            className="fixed lg:relative inset-y-0 left-0 z-50 w-[280px] h-full bg-white border-r border-slate-200 flex-shrink-0 overflow-hidden"
           >
-            <div className="flex flex-col h-full w-[280px]">
+            <div className="flex flex-col h-full w-full">
               {/* Sidebar Header */}
               <div className="p-4 border-b border-slate-200">
                 <Button className="w-full justify-start" variant="secondary">
@@ -208,10 +217,16 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Chat Header */}
-        <div className="h-14 px-4 flex items-center gap-3 border-b border-slate-200 bg-white">
+        <div className="h-14 px-3 sm:px-4 flex items-center gap-2 sm:gap-3 border-b border-slate-200 bg-white">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-lg hover:bg-slate-100 text-slate-500"
+            className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 lg:hidden"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hidden lg:block"
           >
             {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -221,34 +236,34 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
-          <div className="flex items-center gap-2">
-            <FileSpreadsheet className="w-5 h-5 text-vibrant-blue" />
-            <span className="font-medium text-slate-900">{table.name}</span>
+          <div className="flex items-center gap-2 min-w-0">
+            <FileSpreadsheet className="w-5 h-5 text-vibrant-blue flex-shrink-0" />
+            <span className="font-medium text-slate-900 truncate">{table.name}</span>
           </div>
         </div>
 
         {/* Messages Area */}
         <div className="flex-1 overflow-y-auto">
-          <div className="max-w-3xl mx-auto py-6 px-4">
+          <div className="max-w-3xl mx-auto py-4 sm:py-6 px-3 sm:px-4">
             {messages.length === 0 ? (
               // Empty State with Suggestions
-              <div className="text-center py-12">
+              <div className="text-center py-8 sm:py-12">
                 <div className="w-16 h-16 rounded-2xl bg-vibrant-blue/10 flex items-center justify-center mx-auto mb-6">
                   <Sparkles className="w-8 h-8 text-vibrant-blue" />
                 </div>
-                <h2 className="text-xl font-semibold text-slate-900 mb-2">
+                <h2 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2">
                   Start a conversation
                 </h2>
-                <p className="text-slate-600 mb-8 max-w-md mx-auto">
+                <p className="text-sm sm:text-base text-slate-600 mb-6 sm:mb-8 max-w-md mx-auto px-4">
                   Ask questions about your data in natural language. I&apos;ll analyze
                   your table and provide insights with visualizations.
                 </p>
-                <div className="grid sm:grid-cols-2 gap-3 max-w-lg mx-auto">
+                <div className="grid sm:grid-cols-2 gap-2 sm:gap-3 max-w-lg mx-auto px-3">
                   {["What are the total sales by region?", "Show me the sales trend over time", "Which product has the highest revenue?", "Compare Q3 vs Q4 performance"].map((query, index) => (
                     <button
                       key={index}
                       onClick={() => setInputValue(query)}
-                      className="p-3 text-left rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all text-sm text-slate-700"
+                      className="p-3 text-left rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all text-xs sm:text-sm text-slate-700"
                     >
                       {query}
                     </button>
@@ -257,7 +272,7 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
               </div>
             ) : (
               // Messages
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {messages.map((message) => (
                   <motion.div
                     key={message.id}
@@ -266,7 +281,7 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
                     className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                   >
                     <div
-                      className={`max-w-[85%] ${
+                      className={`max-w-[95%] sm:max-w-[85%] ${
                         message.role === "user"
                           ? "chat-bubble-user"
                           : "chat-bubble-ai"
@@ -385,7 +400,7 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
         </div>
 
         {/* Input Area */}
-        <div className="border-t border-slate-200 bg-white p-4">
+        <div className="border-t border-slate-200 bg-white p-3 sm:p-4">
           <div className="max-w-3xl mx-auto">
             <div className="relative">
               <textarea
@@ -395,8 +410,8 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
                 onKeyDown={handleKeyDown}
                 placeholder="Ask a question about your data..."
                 rows={1}
-                className="w-full px-4 py-3 pr-12 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 resize-none focus:outline-none focus:border-vibrant-blue focus:ring-2 focus:ring-vibrant-blue/10"
-                style={{ minHeight: "48px", maxHeight: "200px" }}
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pr-12 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 resize-none focus:outline-none focus:border-vibrant-blue focus:ring-2 focus:ring-vibrant-blue/10 text-sm sm:text-base"
+                style={{ minHeight: "44px", maxHeight: "200px" }}
               />
               <button
                 onClick={handleSend}

@@ -17,6 +17,8 @@ import {
   Bell,
   Search,
   Gem,
+  Menu,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -37,14 +39,23 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-bg-primary flex">
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Admin Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-screen bg-white border-r border-slate-200 transition-all duration-300 z-40 shadow-sm ${
+        className={`fixed left-0 top-0 h-screen bg-white border-r border-slate-200 transition-all duration-300 z-50 shadow-sm ${
           isCollapsed ? "w-20" : "w-64"
-        }`}
+        } ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
       >
         {/* Logo */}
         <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200">
@@ -74,6 +85,7 @@ export default function AdminLayout({
                 <li key={item.href}>
                   <Link
                     href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
                       isActive
                         ? "bg-vibrant-blue/10 text-vibrant-blue font-medium"
@@ -104,11 +116,19 @@ export default function AdminLayout({
       </aside>
 
       {/* Main Content Area */}
-      <div className={`flex-1 ${isCollapsed ? "ml-16" : "ml-64"} transition-all duration-300`}>
+      <div className={`flex-1 transition-all duration-300 ${isCollapsed ? "lg:ml-20" : "lg:ml-64"}`}>
         {/* Top Header */}
-        <header className="h-16 bg-white border-b border-slate-200 sticky top-0 z-30 flex items-center justify-between px-6">
+        <header className="h-16 bg-white border-b border-slate-200 sticky top-0 z-30 flex items-center justify-between px-4 lg:px-6">
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="lg:hidden p-2 text-slate-600 hover:text-slate-900 transition-colors"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+
           <div className="flex items-center gap-4 flex-1">
-            <div className="relative max-w-md flex-1">
+            <div className="relative max-w-md flex-1 hidden sm:block">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
               <input
                 type="text"
@@ -117,13 +137,13 @@ export default function AdminLayout({
               />
             </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <button className="relative p-2 rounded-xl hover:bg-slate-50 transition-colors">
               <Bell className="w-5 h-5 text-slate-600" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-error rounded-full" />
             </button>
-            <div className="h-8 w-px bg-slate-200" />
-            <div className="flex items-center gap-3">
+            <div className="h-8 w-px bg-slate-200 hidden sm:block" />
+            <div className="flex items-center gap-2 sm:gap-3">
               <div className="w-8 h-8 rounded-full bg-vibrant-blue flex items-center justify-center">
                 <span className="text-white text-sm font-semibold">A</span>
               </div>
@@ -136,7 +156,7 @@ export default function AdminLayout({
         </header>
 
         {/* Page Content */}
-        <main className="p-6">{children}</main>
+        <main className="p-4 sm:p-6">{children}</main>
       </div>
     </div>
   );
