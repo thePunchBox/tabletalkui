@@ -178,7 +178,7 @@ export default function AdminDashboardPage() {
                       borderRadius: "12px",
                       boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                     }}
-                    formatter={(value: number) => [`$${value.toLocaleString()}`, "Revenue"]}
+                    formatter={(value) => value !== undefined ? [`$${(value as number).toLocaleString()}`, "Revenue"] : ["", ""]}
                   />
                   <Area
                     type="monotone"
@@ -219,7 +219,7 @@ export default function AdminDashboardPage() {
                       borderRadius: "12px",
                       boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                     }}
-                    formatter={(value: number) => [`${value.toLocaleString()} users`, "Users"]}
+                    formatter={(value) => value !== undefined ? [`${(value as number).toLocaleString()} users`, "Users"] : ["", ""]}
                   />
                   <Bar dataKey="users" radius={[0, 8, 8, 0]} />
                 </BarChart>

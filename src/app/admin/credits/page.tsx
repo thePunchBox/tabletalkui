@@ -182,7 +182,7 @@ export default function CreditsPage() {
                     borderRadius: "12px",
                     boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
                   }}
-                  formatter={(value: number) => [`${formatCredits(value)} credits`, "Usage"]}
+                  formatter={(value) => value !== undefined ? [`${formatCredits(value as number)} credits`, "Usage"] : ["", ""]}
                 />
                 <Area
                   type="monotone"
