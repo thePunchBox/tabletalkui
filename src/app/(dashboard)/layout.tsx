@@ -9,7 +9,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-app-bg bg-atmospheric">
+    <div className="min-h-screen bg-bg-primary">
       <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} isMobileOpen={isMobileOpen} setIsMobileOpen={setIsMobileOpen} />
       <div className={cn("min-h-screen transition-all", isCollapsed ? "lg:pl-20" : "lg:pl-64")}>
         <Header onMenuClick={() => setIsMobileOpen(true)} />

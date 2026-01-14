@@ -30,12 +30,12 @@ const staggerContainer = {
 // Skeleton for loading
 function ChatSkeleton() {
   return (
-    <div className="p-4 animate-pulse border-b border-app-border last:border-0">
+    <div className="p-4 animate-pulse border-b border-slate-200 last:border-0">
       <div className="flex items-start gap-4">
-        <div className="w-10 h-10 rounded-xl bg-glass-medium" />
+        <div className="w-10 h-10 rounded-xl bg-slate-200" />
         <div className="flex-1 space-y-2">
-          <div className="h-4 w-3/4 rounded bg-glass-medium" />
-          <div className="h-3 w-1/2 rounded bg-glass-light" />
+          <div className="h-4 w-3/4 rounded bg-slate-200" />
+          <div className="h-3 w-1/2 rounded bg-slate-100" />
         </div>
       </div>
     </div>
@@ -50,18 +50,18 @@ function EmptyState() {
       animate={{ opacity: 1, scale: 1 }}
       className="flex flex-col items-center justify-center py-16 px-4"
     >
-      <div className="w-20 h-20 rounded-full bg-glass-light flex items-center justify-center mb-6">
-        <MessageSquare className="w-10 h-10 text-text-disabled" />
+      <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-6">
+        <MessageSquare className="w-10 h-10 text-slate-400" />
       </div>
-      <h3 className="text-xl font-semibold text-text-heading mb-2">
+      <h3 className="text-xl font-semibold text-slate-900 mb-2">
         No conversations yet
       </h3>
-      <p className="text-text-secondary text-center max-w-md mb-6">
+      <p className="text-slate-600 text-center max-w-md mb-6">
         Start chatting with your tables to see your conversation history here.
       </p>
       <Link
         href="/tables"
-        className="text-accent-blue-light hover:underline flex items-center gap-1"
+        className="text-vibrant-blue hover:underline flex items-center gap-1"
       >
         Browse your tables
         <ArrowRight className="w-4 h-4" />
@@ -120,10 +120,10 @@ export default function ChatHistoryPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-text-heading tracking-tight">
+        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
           Chat History
         </h1>
-        <p className="text-text-secondary mt-1">
+        <p className="text-slate-600 mt-1">
           Browse and continue your previous conversations.
         </p>
       </div>
@@ -133,7 +133,7 @@ export default function ChatHistoryPage() {
           {/* Search */}
           <Card className="p-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-disabled" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input
                 type="text"
                 placeholder="Search conversations..."
@@ -156,11 +156,11 @@ export default function ChatHistoryPage() {
           {/* No Results */}
           {showNoResults && (
             <Card className="p-12 text-center">
-              <Search className="w-12 h-12 text-text-disabled mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-text-heading mb-2">
+              <Search className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">
                 No conversations found
               </h3>
-              <p className="text-text-secondary">
+              <p className="text-slate-600">
                 Try adjusting your search query
               </p>
             </Card>
@@ -178,7 +178,7 @@ export default function ChatHistoryPage() {
                 ([group, chats]) =>
                   chats.length > 0 && (
                     <motion.div key={group} variants={fadeInUp}>
-                      <h2 className="text-sm font-medium text-text-secondary uppercase tracking-widest mb-3">
+                      <h2 className="text-sm font-medium text-slate-500 uppercase tracking-widest mb-3">
                         {group}
                       </h2>
                       <Card>
@@ -186,36 +186,36 @@ export default function ChatHistoryPage() {
                           <Link
                             key={chat.id}
                             href={`/tables/${chat.tableId}/chat`}
-                            className={`block p-4 hover:bg-glass-light transition-colors group ${
+                            className={`block p-4 hover:bg-slate-50 transition-colors group ${
                               index < chats.length - 1
-                                ? "border-b border-app-border"
+                                ? "border-b border-slate-200"
                                 : ""
                             }`}
                           >
                             <div className="flex items-start gap-4">
-                              <div className="p-2 rounded-xl bg-accent-blue/15 shrink-0">
-                                <Sparkles className="w-5 h-5 text-accent-blue-light" />
+                              <div className="p-2 rounded-xl bg-vibrant-blue/15 shrink-0">
+                                <Sparkles className="w-5 h-5 text-vibrant-blue" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between gap-4">
-                                  <h3 className="font-medium text-text-heading truncate group-hover:text-accent-blue-light transition-colors">
+                                  <h3 className="font-medium text-slate-900 truncate group-hover:text-vibrant-blue transition-colors">
                                     {chat.title}
                                   </h3>
-                                  <span className="text-xs text-text-secondary shrink-0">
+                                  <span className="text-xs text-slate-500 shrink-0">
                                     {new Date(chat.lastMessage).toLocaleTimeString([], {
                                       hour: "2-digit",
                                       minute: "2-digit",
                                     })}
                                   </span>
                                 </div>
-                                <p className="text-sm text-text-secondary mt-0.5">
+                                <p className="text-sm text-slate-600 mt-0.5">
                                   {chat.tableName}
                                 </p>
-                                <p className="text-sm text-text-disabled mt-1 truncate">
+                                <p className="text-sm text-slate-400 mt-1 truncate">
                                   {chat.messageCount} messages
                                 </p>
                               </div>
-                              <ArrowRight className="w-4 h-4 text-text-disabled opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                              <ArrowRight className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                             </div>
                           </Link>
                         ))}

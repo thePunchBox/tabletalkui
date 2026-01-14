@@ -48,10 +48,10 @@ export default function BillingPage() {
     <div className="max-w-3xl mx-auto space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-text-heading tracking-tight">
+        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
           Settings
         </h1>
-        <p className="text-text-secondary mt-1">
+        <p className="text-slate-600 mt-1">
           Manage your account preferences and settings.
         </p>
       </div>
@@ -65,8 +65,8 @@ export default function BillingPage() {
             className={cn(
               "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors",
               tab.id === "billing"
-                ? "bg-accent-blue/15 text-accent-blue-light"
-                : "text-text-secondary hover:bg-glass-light hover:text-text-heading"
+                ? "bg-vibrant-blue/15 text-vibrant-blue"
+                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
             )}
           >
             <tab.icon className="w-4 h-4" />
@@ -84,18 +84,18 @@ export default function BillingPage() {
           <div className="flex items-start justify-between mb-6">
             <div>
               <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-accent-purple" />
-                <h2 className="text-lg font-semibold text-text-heading">
+                <Sparkles className="w-5 h-5 text-purple-500" />
+                <h2 className="text-lg font-semibold text-slate-900">
                   Pro Plan
                 </h2>
               </div>
-              <p className="text-text-secondary mt-1">
+              <p className="text-slate-600 mt-1">
                 You&apos;re on the Pro plan, billed monthly.
               </p>
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold text-text-heading">$29</p>
-              <p className="text-sm text-text-secondary">/month</p>
+              <p className="text-2xl font-bold text-slate-900">$29</p>
+              <p className="text-sm text-slate-600">/month</p>
             </div>
           </div>
 
@@ -103,9 +103,9 @@ export default function BillingPage() {
             {planFeatures.map((feature) => (
               <li
                 key={feature}
-                className="flex items-center gap-2 text-sm text-text-primary"
+                className="flex items-center gap-2 text-sm text-slate-700"
               >
-                <Check className="w-4 h-4 text-accent-green shrink-0" />
+                <Check className="w-4 h-4 text-success shrink-0" />
                 {feature}
               </li>
             ))}
@@ -113,7 +113,7 @@ export default function BillingPage() {
 
           <div className="flex gap-3">
             <Button variant="secondary">Change Plan</Button>
-            <Button variant="ghost" className="text-text-secondary">
+            <Button variant="ghost" className="text-slate-500">
               Cancel Subscription
             </Button>
           </div>
@@ -122,17 +122,17 @@ export default function BillingPage() {
 
       {/* Usage */}
       <Card className="p-6">
-        <h2 className="text-lg font-semibold text-text-heading mb-6">
+        <h2 className="text-lg font-semibold text-slate-900 mb-6">
           Usage This Month
         </h2>
         <div className="space-y-6">
           {usage.map((item) => (
             <div key={item.label}>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-text-primary">
+                <span className="text-sm font-medium text-slate-700">
                   {item.label}
                 </span>
-                <span className="text-sm text-text-secondary">
+                <span className="text-sm text-slate-600">
                   {item.used.toLocaleString()} / {typeof item.limit === "number" ? item.limit.toLocaleString() : item.limit}
                 </span>
               </div>
@@ -149,26 +149,26 @@ export default function BillingPage() {
 
       {/* Invoice History */}
       <Card className="p-6">
-        <h2 className="text-lg font-semibold text-text-heading mb-6">
+        <h2 className="text-lg font-semibold text-slate-900 mb-6">
           Invoice History
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-app-border">
-                <th className="text-left py-3 text-xs font-medium text-text-secondary uppercase tracking-wider">
+              <tr className="border-b border-slate-200">
+                <th className="text-left py-3 text-xs font-medium text-slate-500 uppercase tracking-wider">
                   Invoice
                 </th>
-                <th className="text-left py-3 text-xs font-medium text-text-secondary uppercase tracking-wider">
+                <th className="text-left py-3 text-xs font-medium text-slate-500 uppercase tracking-wider">
                   Date
                 </th>
-                <th className="text-left py-3 text-xs font-medium text-text-secondary uppercase tracking-wider">
+                <th className="text-left py-3 text-xs font-medium text-slate-500 uppercase tracking-wider">
                   Amount
                 </th>
-                <th className="text-left py-3 text-xs font-medium text-text-secondary uppercase tracking-wider">
+                <th className="text-left py-3 text-xs font-medium text-slate-500 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="text-right py-3 text-xs font-medium text-text-secondary uppercase tracking-wider">
+                <th className="text-right py-3 text-xs font-medium text-slate-500 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -177,28 +177,28 @@ export default function BillingPage() {
               {invoices.map((invoice) => (
                 <tr
                   key={invoice.id}
-                  className="border-b border-app-border last:border-0 hover:bg-glass-light transition-colors"
+                  className="border-b border-slate-200 last:border-0 hover:bg-slate-50 transition-colors"
                 >
-                  <td className="py-3 text-sm text-text-heading font-medium">
+                  <td className="py-3 text-sm text-slate-900 font-medium">
                     {invoice.id}
                   </td>
-                  <td className="py-3 text-sm text-text-primary">
+                  <td className="py-3 text-sm text-slate-700">
                     {invoice.date}
                   </td>
-                  <td className="py-3 text-sm text-text-primary">
+                  <td className="py-3 text-sm text-slate-700">
                     {invoice.amount}
                   </td>
                   <td className="py-3">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-accent-green/15 text-accent-green border border-accent-green/30">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-success/15 text-success border border-success/30">
                       {invoice.status}
                     </span>
                   </td>
                   <td className="py-3 text-right">
                     <div className="flex items-center justify-end gap-2">
-                      <button className="p-1.5 rounded-lg hover:bg-glass-light text-text-secondary hover:text-text-heading transition-colors">
+                      <button className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-900 transition-colors">
                         <Download className="w-4 h-4" />
                       </button>
-                      <button className="p-1.5 rounded-lg hover:bg-glass-light text-text-secondary hover:text-text-heading transition-colors">
+                      <button className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-900 transition-colors">
                         <ExternalLink className="w-4 h-4" />
                       </button>
                     </div>
@@ -214,12 +214,12 @@ export default function BillingPage() {
       <Card className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="p-3 rounded-xl bg-glass-light">
-              <CreditCard className="w-6 h-6 text-text-primary" />
+            <div className="p-3 rounded-xl bg-slate-100">
+              <CreditCard className="w-6 h-6 text-slate-700" />
             </div>
             <div>
-              <p className="font-medium text-text-heading">•••• •••• •••• 4242</p>
-              <p className="text-sm text-text-secondary">Expires 12/2026</p>
+              <p className="font-medium text-slate-900">•••• •••• •••• 4242</p>
+              <p className="text-sm text-slate-600">Expires 12/2026</p>
             </div>
           </div>
           <Button variant="ghost" size="sm">

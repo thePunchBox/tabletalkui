@@ -34,7 +34,7 @@ export function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled
-            ? "bg-dark-bg/80 backdrop-blur-xl border-b border-dark-border"
+            ? "bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-sm"
             : "bg-transparent"
         )}
       >
@@ -43,11 +43,11 @@ export function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 group">
               <div className="relative">
-                <div className="absolute inset-0 bg-accent-blue/20 blur-xl group-hover:bg-accent-blue/30 transition-all" />
-                <Sparkles className="relative w-7 h-7 text-accent-blue" />
+                <div className="absolute inset-0 bg-vibrant-blue/20 blur-xl group-hover:bg-vibrant-blue/30 transition-all" />
+                <Sparkles className="relative w-7 h-7 text-vibrant-blue" />
               </div>
-              <span className="text-xl font-bold text-white">
-                TableTalk<span className="text-accent-blue">AI</span>
+              <span className="text-xl font-bold text-slate-900">
+                TableTalk<span className="text-vibrant-blue">AI</span>
               </span>
             </Link>
 
@@ -57,7 +57,7 @@ export function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                  className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium"
                 >
                   {link.name}
                 </Link>
@@ -68,7 +68,7 @@ export function Navbar() {
             <div className="hidden md:flex items-center gap-4">
               <Link
                 href="/auth/login"
-                className="text-sm text-gray-400 hover:text-white transition-colors"
+                className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium"
               >
                 Login
               </Link>
@@ -80,7 +80,7 @@ export function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-gray-400 hover:text-white transition-colors"
+              className="md:hidden p-2 text-slate-600 hover:text-slate-900 transition-colors"
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -100,7 +100,7 @@ export function Navbar() {
           exit={{ opacity: 0, y: -20 }}
           className="fixed inset-0 z-40 md:hidden"
         >
-          <div className="absolute inset-0 bg-dark-bg/95 backdrop-blur-xl" />
+          <div className="absolute inset-0 bg-white/98 backdrop-blur-xl" />
           <nav className="relative pt-24 px-6">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
@@ -108,16 +108,16 @@ export function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg text-gray-300 hover:text-white transition-colors py-2"
+                  className="text-lg text-slate-700 hover:text-slate-900 transition-colors py-2"
                 >
                   {link.name}
                 </Link>
               ))}
-              <hr className="border-dark-border my-4" />
+              <hr className="border-slate-200 my-4" />
               <Link
                 href="/auth/login"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-lg text-gray-300 hover:text-white transition-colors py-2"
+                className="text-lg text-slate-700 hover:text-slate-900 transition-colors py-2"
               >
                 Login
               </Link>

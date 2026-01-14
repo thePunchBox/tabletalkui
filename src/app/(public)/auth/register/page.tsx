@@ -86,19 +86,19 @@ export default function RegisterPage() {
         transition={{ duration: 0.5 }}
         className="w-full max-w-md relative"
       >
-        <Card variant="glass" className="p-8">
+        <Card className="p-8 shadow-xl">
           {/* Logo */}
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center gap-2">
-              <Sparkles className="w-8 h-8 text-accent-blue" />
-              <span className="text-2xl font-bold text-white">
-                TableTalk<span className="text-accent-blue">AI</span>
+              <Sparkles className="w-8 h-8 text-vibrant-blue" />
+              <span className="text-2xl font-bold text-slate-900">
+                TableTalk<span className="text-vibrant-blue">AI</span>
               </span>
             </Link>
-            <h1 className="mt-6 text-2xl font-semibold text-white">
+            <h1 className="mt-6 text-2xl font-semibold text-slate-900">
               Create your account
             </h1>
-            <p className="mt-2 text-gray-400">
+            <p className="mt-2 text-slate-600">
               Start chatting with your data in minutes
             </p>
           </div>
@@ -127,7 +127,7 @@ export default function RegisterPage() {
               Continue with Google
             </button>
             
-            <button className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl bg-[#2F2F2F] text-white font-medium hover:bg-[#3F3F3F] transition-colors">
+            <button className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl bg-slate-100 text-slate-900 font-medium hover:bg-slate-200 transition-colors border border-slate-200">
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M11.4 24H0V12.6h11.4V24zM24 24H12.6V12.6H24V24zM11.4 11.4H0V0h11.4v11.4zm12.6 0H12.6V0H24v11.4z" />
               </svg>
@@ -138,10 +138,10 @@ export default function RegisterPage() {
           {/* Divider */}
           <div className="relative mb-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-dark-border" />
+              <div className="w-full border-t border-slate-200" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-dark-surface text-gray-400">
+              <span className="px-4 bg-white text-slate-500">
                 or register with email
               </span>
             </div>
@@ -150,16 +150,15 @@ export default function RegisterPage() {
           {/* Registration Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
                 Full name
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                 <Input
                   id="name"
                   name="name"
                   type="text"
-                  variant="dark"
                   placeholder="John Doe"
                   value={formData.name}
                   onChange={handleChange}
@@ -172,16 +171,15 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
                 Email address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                 <Input
                   id="email"
                   name="email"
                   type="email"
-                  variant="dark"
                   placeholder="you@company.com"
                   value={formData.email}
                   onChange={handleChange}
@@ -194,16 +192,15 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-2">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                 <Input
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  variant="dark"
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={handleChange}
@@ -212,7 +209,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                 >
                   {showPassword ? (
                     <EyeOff className="w-5 h-5" />
@@ -230,7 +227,7 @@ export default function RegisterPage() {
                     <div
                       key={req.text}
                       className={`flex items-center gap-2 text-xs ${
-                        met ? "text-accent-green" : "text-gray-500"
+                        met ? "text-success" : "text-slate-400"
                       }`}
                     >
                       <Check className={`w-4 h-4 ${met ? "opacity-100" : "opacity-30"}`} />
@@ -242,20 +239,20 @@ export default function RegisterPage() {
             </div>
 
             <div className="pt-2">
-              <label className="flex items-start gap-3 text-sm text-gray-400">
+              <label className="flex items-start gap-3 text-sm text-slate-600">
                 <input
                   type="checkbox"
                   checked={agreed}
                   onChange={(e) => setAgreed(e.target.checked)}
-                  className="w-4 h-4 mt-0.5 rounded border-dark-border bg-dark-surface text-accent-blue focus:ring-accent-blue"
+                  className="w-4 h-4 mt-0.5 rounded border-slate-300 bg-white text-vibrant-blue focus:ring-vibrant-blue"
                 />
                 <span>
                   I agree to the{" "}
-                  <Link href="#" className="text-accent-blue hover:underline">
+                  <Link href="#" className="text-vibrant-blue hover:underline">
                     Terms of Service
                   </Link>{" "}
                   and{" "}
-                  <Link href="#" className="text-accent-blue hover:underline">
+                  <Link href="#" className="text-vibrant-blue hover:underline">
                     Privacy Policy
                   </Link>
                 </span>
@@ -271,9 +268,9 @@ export default function RegisterPage() {
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-gray-400">
+          <p className="mt-6 text-center text-sm text-slate-600">
             Already have an account?{" "}
-            <Link href="/auth/login" className="text-accent-blue hover:underline font-medium">
+            <Link href="/auth/login" className="text-vibrant-blue hover:underline font-medium">
               Sign in
             </Link>
           </p>

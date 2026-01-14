@@ -119,11 +119,11 @@ const trustedBy = [
 
 export default function LandingPage() {
   return (
-    <div className="relative">
-      {/* Background gradients */}
+    <div className="relative bg-bg-primary">
+      {/* Subtle background gradient */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-accent-blue/10 rounded-full blur-[128px]" />
-        <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-[128px]" />
+        <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-vibrant-blue/5 rounded-full blur-[150px]" />
+        <div className="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-vibrant-blue/3 rounded-full blur-[150px]" />
       </div>
 
       {/* Hero Section */}
@@ -138,7 +138,7 @@ export default function LandingPage() {
             <motion.div
               variants={fadeInUp}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-blue/10 border border-accent-blue/20 text-accent-blue text-sm font-medium mb-8"
+              className="pill-label mx-auto w-fit mb-8"
             >
               <Sparkles className="w-4 h-4" />
               <span>Now with GPT-4 Vision Support</span>
@@ -147,10 +147,10 @@ export default function LandingPage() {
             <motion.h1
               variants={fadeInUp}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-deep-navy leading-tight tracking-tight"
             >
               Turn Your{" "}
-              <span className="gradient-text-blue">Tables</span>
+              <span className="gradient-text">Tables</span>
               <br />
               Into Conversations.
             </motion.h1>
@@ -158,7 +158,7 @@ export default function LandingPage() {
             <motion.p
               variants={fadeInUp}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-6 text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto"
+              className="mt-6 text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto"
             >
               Upload your CSV or Excel files and chat with your data using
               natural language. Get instant insights, visualizations, and answers
@@ -188,14 +188,14 @@ export default function LandingPage() {
             <motion.div
               variants={fadeInUp}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-16 pt-8 border-t border-dark-border"
+              className="mt-16 pt-8 border-t border-slate-200"
             >
-              <p className="text-sm text-gray-500 mb-6">
+              <p className="text-sm text-slate-500 mb-6">
                 Trusted by data teams at
               </p>
               <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
                 {trustedBy.map((company) => (
-                  <span key={company} className="text-gray-500 text-sm font-medium">
+                  <span key={company} className="text-slate-600 text-sm font-medium">
                     {company}
                   </span>
                 ))}
@@ -203,31 +203,30 @@ export default function LandingPage() {
             </motion.div>
           </motion.div>
 
-          {/* Hero Image/Demo */}
+          {/* Hero Image/Demo - Bento Box Style */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             className="mt-20 relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-transparent to-transparent z-10" />
-            <Card variant="glass" className="relative overflow-hidden mx-auto max-w-5xl">
-              <div className="p-4 border-b border-dark-border flex items-center gap-2">
+            <Card variant="elevated" className="relative overflow-hidden mx-auto max-w-5xl shadow-xl border-slate-200">
+              <div className="p-4 border-b border-slate-200 flex items-center gap-2 bg-slate-50">
                 <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-red-400" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                  <div className="w-3 h-3 rounded-full bg-green-400" />
                 </div>
-                <span className="text-xs text-gray-500 ml-4">TableTalk AI - Q4 Sales Analysis</span>
+                <span className="text-xs text-slate-500 ml-4">TableTalk AI - Q4 Sales Analysis</span>
               </div>
-              <div className="p-6 lg:p-8 grid lg:grid-cols-3 gap-6">
+              <div className="p-6 lg:p-8 grid lg:grid-cols-3 gap-6 bg-white">
                 {/* Sidebar */}
                 <div className="lg:col-span-1 space-y-4">
-                  <div className="text-sm text-gray-400">Columns</div>
+                  <div className="text-sm text-slate-600 font-medium">Columns</div>
                   {["Date", "Product", "Region", "Sales", "Units"].map((col) => (
                     <div
                       key={col}
-                      className="px-3 py-2 bg-dark-surface rounded-lg text-sm text-gray-300"
+                      className="px-3 py-2 bg-slate-50 rounded-xl text-sm text-slate-700 border border-slate-200"
                     >
                       {col}
                     </div>
@@ -236,25 +235,25 @@ export default function LandingPage() {
                 {/* Chat preview */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="flex justify-end">
-                    <div className="bg-accent-blue/20 text-white px-4 py-2 rounded-2xl rounded-br-sm text-sm max-w-xs">
+                    <div className="chat-bubble-user text-sm max-w-xs">
                       What were the top regions by sales?
                     </div>
                   </div>
                   <div className="flex">
-                    <div className="glass px-4 py-3 rounded-2xl rounded-bl-sm text-sm text-gray-200 max-w-md">
+                    <div className="chat-bubble-ai text-sm max-w-md">
                       <p className="mb-3">Based on your data, here are the top regions:</p>
                       <div className="space-y-2">
                         {[
                           { region: "North America", value: "$425K" },
                           { region: "Europe", value: "$312K" },
                           { region: "Asia Pacific", value: "$287K" },
-                        ].map((item, i) => (
+                        ].map((item) => (
                           <div
                             key={item.region}
-                            className="flex items-center justify-between bg-dark-surface/50 px-3 py-2 rounded-lg"
+                            className="flex items-center justify-between bg-slate-50 px-3 py-2 rounded-lg border border-slate-200"
                           >
-                            <span className="text-gray-300">{item.region}</span>
-                            <span className="text-accent-blue font-medium">{item.value}</span>
+                            <span className="text-slate-700">{item.region}</span>
+                            <span className="text-vibrant-blue font-semibold">{item.value}</span>
                           </div>
                         ))}
                       </div>
@@ -268,7 +267,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="relative py-20 lg:py-32">
+      <section id="features" className="relative py-20 lg:py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -277,9 +276,12 @@ export default function LandingPage() {
             variants={staggerContainer}
             className="text-center mb-16"
           >
+            <motion.div variants={fadeInUp} className="pill-label mx-auto w-fit mb-6">
+              <span>FEATURES OVERVIEW</span>
+            </motion.div>
             <motion.h2
               variants={fadeInUp}
-              className="text-3xl lg:text-4xl font-bold text-white"
+              className="text-3xl lg:text-4xl font-bold text-deep-navy"
             >
               Everything you need to
               <br />
@@ -287,7 +289,7 @@ export default function LandingPage() {
             </motion.h2>
             <motion.p
               variants={fadeInUp}
-              className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto"
+              className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto"
             >
               Powerful features designed to unlock insights from your spreadsheets
               with zero technical knowledge required.
@@ -308,16 +310,16 @@ export default function LandingPage() {
                 transition={{ delay: index * 0.1 }}
               >
                 <Card
-                  variant="glass"
-                  className="p-6 lg:p-8 h-full hover:bg-white/[0.08] transition-all duration-300 group"
+                  variant="elevated"
+                  className="p-6 lg:p-8 h-full hover:shadow-lg transition-all duration-300 group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-accent-blue/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <feature.icon className="w-6 h-6 text-accent-blue" />
+                  <div className="w-12 h-12 rounded-2xl bg-vibrant-blue/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-vibrant-blue/15 transition-all">
+                    <feature.icon className="w-6 h-6 text-vibrant-blue" />
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-3">
+                  <h3 className="text-xl font-semibold text-deep-navy mb-3">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-400">{feature.description}</p>
+                  <p className="text-slate-600">{feature.description}</p>
                 </Card>
               </motion.div>
             ))}
@@ -341,10 +343,10 @@ export default function LandingPage() {
                 key={item.text}
                 variants={fadeInUp}
                 transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-3 px-4 py-3 rounded-xl bg-dark-surface/50 border border-dark-border"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white border border-slate-200 shadow-sm"
               >
-                <item.icon className="w-5 h-5 text-accent-blue" />
-                <span className="text-sm text-gray-300">{item.text}</span>
+                <item.icon className="w-5 h-5 text-vibrant-blue" />
+                <span className="text-sm text-slate-700 font-medium">{item.text}</span>
               </motion.div>
             ))}
           </motion.div>
@@ -352,7 +354,7 @@ export default function LandingPage() {
       </section>
 
       {/* How it Works Section */}
-      <section id="how-it-works" className="relative py-20 lg:py-32 bg-dark-surface/30">
+      <section id="how-it-works" className="relative py-20 lg:py-32 bg-bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -361,9 +363,12 @@ export default function LandingPage() {
             variants={staggerContainer}
             className="text-center mb-16"
           >
+            <motion.div variants={fadeInUp} className="pill-label mx-auto w-fit mb-6">
+              <span>HOW IT WORKS</span>
+            </motion.div>
             <motion.h2
               variants={fadeInUp}
-              className="text-3xl lg:text-4xl font-bold text-white"
+              className="text-3xl lg:text-4xl font-bold text-deep-navy"
             >
               From raw data to insights
               <br />
@@ -379,7 +384,7 @@ export default function LandingPage() {
             className="relative"
           >
             {/* Connection line */}
-            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-dark-border to-transparent" />
+            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
 
             <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
               {steps.map((step, index) => (
@@ -390,19 +395,19 @@ export default function LandingPage() {
                   className="relative"
                 >
                   <Card
-                    variant="dark"
-                    className="p-6 lg:p-8 h-full relative z-10"
+                    variant="elevated"
+                    className="p-6 lg:p-8 h-full relative z-10 hover:shadow-lg transition-all"
                   >
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="w-12 h-12 rounded-full bg-accent-blue flex items-center justify-center text-white font-bold">
+                      <div className="w-12 h-12 rounded-full bg-vibrant-blue flex items-center justify-center text-white font-bold shadow-glow">
                         {step.number}
                       </div>
-                      <step.icon className="w-6 h-6 text-gray-400" />
+                      <step.icon className="w-6 h-6 text-slate-500" />
                     </div>
-                    <h3 className="text-xl font-semibold text-white mb-3">
+                    <h3 className="text-xl font-semibold text-deep-navy mb-3">
                       {step.title}
                     </h3>
-                    <p className="text-gray-400">{step.description}</p>
+                    <p className="text-slate-600">{step.description}</p>
                   </Card>
                 </motion.div>
               ))}
@@ -412,7 +417,7 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Preview Section */}
-      <section className="relative py-20 lg:py-32">
+      <section className="relative py-20 lg:py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -421,13 +426,16 @@ export default function LandingPage() {
             variants={staggerContainer}
             className="text-center mb-16"
           >
+            <motion.div variants={fadeInUp} className="pill-label mx-auto w-fit mb-6">
+              <span>PRICING</span>
+            </motion.div>
             <motion.h2
               variants={fadeInUp}
-              className="text-3xl lg:text-4xl font-bold text-white"
+              className="text-3xl lg:text-4xl font-bold text-deep-navy"
             >
               Simple, transparent pricing
             </motion.h2>
-            <motion.p variants={fadeInUp} className="mt-4 text-lg text-gray-400">
+            <motion.p variants={fadeInUp} className="mt-4 text-lg text-slate-600">
               Start free. Upgrade when you need more power.
             </motion.p>
           </motion.div>
@@ -446,26 +454,26 @@ export default function LandingPage() {
                 transition={{ delay: index * 0.1 }}
               >
                 <Card
-                  variant={plan.popular ? "glass" : "dark"}
+                  variant="elevated"
                   className={`p-6 lg:p-8 h-full relative ${
-                    plan.popular ? "ring-2 ring-accent-blue" : ""
+                    plan.popular ? "ring-2 ring-vibrant-blue shadow-glow" : ""
                   }`}
                 >
                   {plan.popular && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-accent-blue text-white text-xs font-medium rounded-full">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-vibrant-blue text-white text-xs font-medium rounded-full shadow-md">
                       Most Popular
                     </div>
                   )}
-                  <h3 className="text-lg font-semibold text-white">{plan.name}</h3>
-                  <p className="text-sm text-gray-400 mt-1">{plan.description}</p>
+                  <h3 className="text-lg font-semibold text-deep-navy">{plan.name}</h3>
+                  <p className="text-sm text-slate-600 mt-1">{plan.description}</p>
                   <div className="mt-4">
-                    <span className="text-4xl font-bold text-white">{plan.price}</span>
-                    <span className="text-gray-400">{plan.period}</span>
+                    <span className="text-4xl font-bold text-deep-navy">{plan.price}</span>
+                    <span className="text-slate-600">{plan.period}</span>
                   </div>
                   <ul className="mt-6 space-y-3">
                     {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2 text-sm text-gray-300">
-                        <Check className="w-4 h-4 text-accent-blue" />
+                      <li key={feature} className="flex items-center gap-2 text-sm text-slate-700">
+                        <Check className="w-4 h-4 text-success" />
                         {feature}
                       </li>
                     ))}
@@ -487,7 +495,7 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-20 lg:py-32">
+      <section className="relative py-20 lg:py-32 bg-bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -495,15 +503,15 @@ export default function LandingPage() {
             viewport={{ once: true, amount: 0.5 }}
             variants={fadeInUp}
           >
-            <Card variant="glass" className="p-8 lg:p-16 text-center relative overflow-hidden">
-              {/* Background glow */}
-              <div className="absolute inset-0 bg-gradient-to-b from-accent-blue/10 to-transparent pointer-events-none" />
+            <Card variant="elevated" className="p-8 lg:p-16 text-center relative overflow-hidden shadow-xl">
+              {/* Background decoration */}
+              <div className="absolute inset-0 bg-gradient-to-br from-vibrant-blue/5 to-transparent pointer-events-none" />
               
               <div className="relative z-10">
-                <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+                <h2 className="text-3xl lg:text-4xl font-bold text-deep-navy mb-4">
                   Ready to talk to your data?
                 </h2>
-                <p className="text-lg text-gray-400 max-w-xl mx-auto mb-8">
+                <p className="text-lg text-slate-600 max-w-xl mx-auto mb-8">
                   Join thousands of analysts, marketers, and teams who are getting
                   faster insights from their spreadsheets.
                 </p>
@@ -513,7 +521,7 @@ export default function LandingPage() {
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Link>
                 </Button>
-                <p className="mt-4 text-sm text-gray-500">
+                <p className="mt-4 text-sm text-slate-500">
                   No credit card required • Free forever plan
                 </p>
               </div>

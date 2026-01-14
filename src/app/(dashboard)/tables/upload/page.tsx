@@ -97,10 +97,10 @@ export default function UploadPage() {
     <div className="max-w-3xl mx-auto space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-text-heading tracking-tight">
+        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
           Upload Table
         </h1>
-        <p className="text-text-secondary mt-1">
+        <p className="text-slate-600 mt-1">
           Import your CSV or Excel files to start chatting with your data.
         </p>
       </div>
@@ -122,8 +122,8 @@ export default function UploadPage() {
                 onDrop={handleDrop}
                 className={`relative border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-300 ${
                   isDragActive
-                    ? "border-accent-blue bg-accent-blue/10 shadow-glow-blue"
-                    : "border-app-border hover:border-accent-blue/50 hover:bg-glass-light"
+                    ? "border-vibrant-blue bg-vibrant-blue/10 shadow-glow-blue"
+                    : "border-slate-300 hover:border-vibrant-blue/50 hover:bg-slate-50"
                 }`}
               >
                 <input
@@ -134,26 +134,26 @@ export default function UploadPage() {
                 />
                 <div className="flex flex-col items-center gap-4">
                   <div className={`p-4 rounded-2xl transition-colors ${
-                    isDragActive ? "bg-accent-blue/20" : "bg-glass-light"
+                    isDragActive ? "bg-vibrant-blue/20" : "bg-slate-100"
                   }`}>
                     <Upload className={`w-10 h-10 ${
-                      isDragActive ? "text-accent-blue-light" : "text-text-secondary"
+                      isDragActive ? "text-vibrant-blue" : "text-slate-500"
                     }`} />
                   </div>
                   <div>
-                    <p className="text-lg font-medium text-text-heading">
+                    <p className="text-lg font-medium text-slate-900">
                       {isDragActive
                         ? "Drop your file here"
                         : "Drag & drop your file here"}
                     </p>
-                    <p className="text-sm text-text-secondary mt-1">
+                    <p className="text-sm text-slate-600 mt-1">
                       or{" "}
-                      <span className="text-accent-blue-light hover:underline cursor-pointer">
+                      <span className="text-vibrant-blue hover:underline cursor-pointer">
                         browse files
                       </span>
                     </p>
                   </div>
-                  <p className="text-xs text-text-disabled">
+                  <p className="text-xs text-slate-400">
                     Supports CSV, XLSX, XLS up to 50MB
                   </p>
                 </div>
@@ -170,23 +170,23 @@ export default function UploadPage() {
               className="text-center py-8"
             >
               <div className="flex items-center justify-center gap-3 mb-6">
-                <FileSpreadsheet className="w-8 h-8 text-accent-blue-light" />
-                <span className="text-lg font-medium text-text-heading truncate max-w-xs">
+                <FileSpreadsheet className="w-8 h-8 text-vibrant-blue" />
+                <span className="text-lg font-medium text-slate-900 truncate max-w-xs">
                   {fileName}
                 </span>
               </div>
               <div className="max-w-md mx-auto mb-4">
                 <Progress value={progress} />
               </div>
-              <p className="text-sm text-text-secondary">
+              <p className="text-sm text-slate-600">
                 {uploadState === "uploading"
                   ? `Uploading... ${progress}%`
                   : "Processing your data..."}
               </p>
               {uploadState === "processing" && (
                 <div className="flex items-center justify-center gap-2 mt-4">
-                  <Sparkles className="w-4 h-4 text-accent-blue-light animate-pulse" />
-                  <span className="text-sm text-accent-blue-light">
+                  <Sparkles className="w-4 h-4 text-vibrant-blue animate-pulse" />
+                  <span className="text-sm text-vibrant-blue">
                     Analyzing columns and data types
                   </span>
                 </div>
@@ -202,29 +202,29 @@ export default function UploadPage() {
               exit={{ opacity: 0, scale: 0.95 }}
               className="text-center py-8"
             >
-              <div className="w-16 h-16 rounded-full bg-accent-green/15 flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8 text-accent-green" />
+              <div className="w-16 h-16 rounded-full bg-success/15 flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="w-8 h-8 text-success" />
               </div>
-              <h3 className="text-xl font-semibold text-text-heading mb-2">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">
                 Upload Complete!
               </h3>
-              <p className="text-text-secondary mb-6">
+              <p className="text-slate-600 mb-6">
                 Your table &quot;{fileName}&quot; is ready for analysis.
               </p>
 
               {/* Preview Stats */}
               <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-8">
-                <div className="p-4 rounded-xl bg-glass-light border border-app-border">
-                  <p className="text-2xl font-bold text-text-heading">15,420</p>
-                  <p className="text-xs text-text-secondary">Rows</p>
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <p className="text-2xl font-bold text-slate-900">15,420</p>
+                  <p className="text-xs text-slate-600">Rows</p>
                 </div>
-                <div className="p-4 rounded-xl bg-glass-light border border-app-border">
-                  <p className="text-2xl font-bold text-text-heading">12</p>
-                  <p className="text-xs text-text-secondary">Columns</p>
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <p className="text-2xl font-bold text-slate-900">12</p>
+                  <p className="text-xs text-slate-600">Columns</p>
                 </div>
-                <div className="p-4 rounded-xl bg-glass-light border border-app-border">
-                  <p className="text-2xl font-bold text-text-heading">2.4MB</p>
-                  <p className="text-xs text-text-secondary">Size</p>
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <p className="text-2xl font-bold text-slate-900">2.4MB</p>
+                  <p className="text-xs text-slate-600">Size</p>
                 </div>
               </div>
 
@@ -254,12 +254,12 @@ export default function UploadPage() {
               className="text-center py-8"
             >
               <div className="w-16 h-16 rounded-full bg-red-500/15 flex items-center justify-center mx-auto mb-4">
-                <AlertCircle className="w-8 h-8 text-red-400" />
+                <AlertCircle className="w-8 h-8 text-red-500" />
               </div>
-              <h3 className="text-xl font-semibold text-text-heading mb-2">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">
                 Upload Failed
               </h3>
-              <p className="text-text-secondary mb-6">
+              <p className="text-slate-600 mb-6">
                 There was an error processing your file. Please try again.
               </p>
               <Button onClick={resetUpload}>Try Again</Button>
@@ -270,7 +270,7 @@ export default function UploadPage() {
 
       {/* Tips */}
       <Card className="p-6">
-        <h3 className="text-sm font-medium text-text-heading mb-4">
+        <h3 className="text-sm font-medium text-slate-900 mb-4">
           Tips for best results
         </h3>
         <ul className="space-y-3">
@@ -280,8 +280,8 @@ export default function UploadPage() {
             "Use consistent date formats across columns",
             "Clean any empty rows or columns",
           ].map((tip, index) => (
-            <li key={index} className="flex items-start gap-3 text-sm text-text-secondary">
-              <CheckCircle className="w-4 h-4 text-accent-green shrink-0 mt-0.5" />
+            <li key={index} className="flex items-start gap-3 text-sm text-slate-600">
+              <CheckCircle className="w-4 h-4 text-success shrink-0 mt-0.5" />
               {tip}
             </li>
           ))}

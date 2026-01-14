@@ -1,9 +1,15 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { variant?: "default" | "glass" | "solid" | "dark"; glow?: boolean }>(
+const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { variant?: "default" | "glass" | "solid" | "elevated"; glow?: boolean }>(
   ({ className, variant = "default", glow = false, ...props }, ref) => (
-    <div ref={ref} className={cn("rounded-2xl transition-all duration-200 glass-card", glow && "hover:shadow-glow-blue", className)} {...props} />
+    <div ref={ref} className={cn(
+      "rounded-2xl bg-white border border-slate-200 shadow-card transition-all duration-200",
+      variant === "elevated" && "shadow-lg",
+      variant === "glass" && "bg-white/90 backdrop-blur-md border-white/50",
+      glow && "hover:shadow-glow hover:border-vibrant-blue/30",
+      className
+    )} {...props} />
   )
 );
 Card.displayName = "Card";
@@ -14,12 +20,12 @@ const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, ...props }, ref) => (
-  <h3 ref={ref} className={cn("text-xl font-semibold leading-none tracking-tight text-text-heading", className)} {...props} />
+  <h3 ref={ref} className={cn("text-xl font-semibold leading-none tracking-tight text-slate-900", className)} {...props} />
 ));
 CardTitle.displayName = "CardTitle";
 
 const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn("text-sm text-text-secondary", className)} {...props} />
+  <p ref={ref} className={cn("text-sm text-slate-600", className)} {...props} />
 ));
 CardDescription.displayName = "CardDescription";
 

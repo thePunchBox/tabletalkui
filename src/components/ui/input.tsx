@@ -7,8 +7,8 @@ const inputVariants = cva(
   {
     variants: {
       variant: {
-        default: "h-11 px-4 py-2 bg-glass-light border border-app-border text-text-heading placeholder:text-text-disabled focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20",
-        dark: "h-11 px-4 py-2 bg-glass-light border border-app-border text-text-heading placeholder:text-text-disabled focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20",
+        default: "h-11 px-4 py-2 bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-vibrant-blue focus:ring-2 focus:ring-vibrant-blue/20",
+        dark: "h-11 px-4 py-2 bg-slate-800 border border-slate-700 text-white placeholder:text-slate-400 focus:border-vibrant-blue focus:ring-2 focus:ring-vibrant-blue/20",
       },
     },
     defaultVariants: { variant: "default" },

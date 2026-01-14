@@ -43,10 +43,10 @@ export default function ProfilePage() {
     <div className="max-w-3xl mx-auto space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-text-heading tracking-tight">
+        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
           Settings
         </h1>
-        <p className="text-text-secondary mt-1">
+        <p className="text-slate-600 mt-1">
           Manage your account preferences and settings.
         </p>
       </div>
@@ -60,8 +60,8 @@ export default function ProfilePage() {
             className={cn(
               "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors",
               tab.id === "profile"
-                ? "bg-accent-blue/15 text-accent-blue-light"
-                : "text-text-secondary hover:bg-glass-light hover:text-text-heading"
+                ? "bg-vibrant-blue/15 text-vibrant-blue"
+                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
             )}
           >
             <tab.icon className="w-4 h-4" />
@@ -76,7 +76,7 @@ export default function ProfilePage() {
         animate={{ opacity: 1, y: 0 }}
       >
         <Card className="p-6">
-          <h2 className="text-lg font-semibold text-text-heading mb-6">
+          <h2 className="text-lg font-semibold text-slate-900 mb-6">
             Profile Information
           </h2>
 
@@ -93,9 +93,9 @@ export default function ProfilePage() {
               </button>
             </div>
             <div>
-              <h3 className="font-medium text-text-heading">{currentUser.name}</h3>
-              <p className="text-sm text-text-secondary">{currentUser.email}</p>
-              <button className="text-sm text-accent-blue-light hover:underline mt-1">
+              <h3 className="font-medium text-slate-900">{currentUser.name}</h3>
+              <p className="text-sm text-slate-600">{currentUser.email}</p>
+              <button className="text-sm text-vibrant-blue hover:underline mt-1">
                 Change photo
               </button>
             </div>
@@ -104,7 +104,7 @@ export default function ProfilePage() {
           {/* Form */}
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Full Name
               </label>
               <Input
@@ -115,7 +115,7 @@ export default function ProfilePage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Email Address
               </label>
               <Input
@@ -127,7 +127,7 @@ export default function ProfilePage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Company
               </label>
               <Input
@@ -138,7 +138,7 @@ export default function ProfilePage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Phone Number
               </label>
               <Input
@@ -151,7 +151,7 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <div className="flex justify-end mt-6 pt-6 border-t border-app-border">
+          <div className="flex justify-end mt-6 pt-6 border-t border-slate-200">
             <Button onClick={handleSave} disabled={isSaving}>
               <Save className="w-4 h-4 mr-2" />
               {isSaving ? "Saving..." : "Save Changes"}
@@ -164,11 +164,11 @@ export default function ProfilePage() {
       <Card className="p-6 border-red-500/30">
         <div className="flex items-start gap-4">
           <div className="p-2 rounded-xl bg-red-500/15">
-            <AlertTriangle className="w-5 h-5 text-red-400" />
+            <AlertTriangle className="w-5 h-5 text-red-500" />
           </div>
           <div className="flex-1">
-            <h3 className="font-semibold text-text-heading">Danger Zone</h3>
-            <p className="text-sm text-text-secondary mt-1">
+            <h3 className="font-semibold text-slate-900">Danger Zone</h3>
+            <p className="text-sm text-slate-600 mt-1">
               Once you delete your account, there is no going back. Please be
               certain.
             </p>
