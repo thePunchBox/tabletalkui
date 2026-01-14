@@ -126,11 +126,73 @@ export default function UsersPage() {
         animate={{ opacity: 1, y: 0 }}
       >
         <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[800px]">
+          {/* Mobile Card View */}
+          <div className="lg:hidden divide-y divide-slate-200">
+            {filteredUsers.map((user) => (
+              <div key={user.id} className="p-4 space-y-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <input
+                      type="checkbox"
+                      checked={selectedUsers.includes(user.id)}
+                      onChange={() => toggleSelectUser(user.id)}
+                      className="w-4 h-4 rounded border-slate-200 text-vibrant-blue focus:ring-vibrant-blue flex-shrink-0"
+                    />
+                    <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center flex-shrink-0">
+                      <span className="text-sm font-semibold text-slate-900">
+                        {user.name.split(" ").map(n => n[0]).join("")}
+                      </span>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-slate-900 truncate">{user.name}</p>
+                      <p className="text-xs text-slate-500 truncate">{user.email}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 flex-shrink-0">
+                    <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors" title="View Details">
+                      <Eye className="w-4 h-4 text-slate-600" />
+                    </button>
+                    <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors" title="Send Email">
+                      <Mail className="w-4 h-4 text-slate-600" />
+                    </button>
+                    <button className="p-2 hover:bg-error/10 rounded-lg transition-colors" title="Suspend User">
+                      <Ban className="w-4 h-4 text-error" />
+                    </button>
+                  </div>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 pl-7">
+                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                    user.plan === "Enterprise" ? "bg-deep-navy/10 text-deep-navy" :
+                    user.plan === "Pro" ? "bg-vibrant-blue/10 text-vibrant-blue" :
+                    "bg-slate-50 text-slate-600"
+                  }`}>
+                    {user.plan}
+                  </span>
+                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                    user.status === "active" ? "bg-success/10 text-success" :
+                    user.status === "trial" ? "bg-vibrant-blue/10 text-vibrant-blue" :
+                    "bg-slate-500/10 text-slate-500"
+                  }`}>
+                    {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
+                  </span>
+                </div>
+                <div className="flex flex-wrap items-center gap-3 text-xs text-slate-600 pl-7">
+                  <span><span className="font-medium">{user.credits.toLocaleString()}</span> credits</span>
+                  <span className="w-1 h-1 rounded-full bg-slate-300" />
+                  <span>{user.files} files</span>
+                  <span className="w-1 h-1 rounded-full bg-slate-300" />
+                  <span>Joined {user.joined}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className="hidden lg:block">
+            <table className="w-full">
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50">
-                  <th className="text-left p-3 lg:p-4">
+                  <th className="text-left p-4">
                     <input
                       type="checkbox"
                       checked={selectedUsers.length === filteredUsers.length && filteredUsers.length > 0}
@@ -138,13 +200,13 @@ export default function UsersPage() {
                       className="w-4 h-4 rounded border-slate-200 text-vibrant-blue focus:ring-vibrant-blue"
                     />
                   </th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">User</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Plan</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Credits</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Files</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Status</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Joined</th>
-                  <th className="text-right p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Actions</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">User</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Plan</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Credits</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Files</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Status</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Joined</th>
+                  <th className="text-right p-4 text-sm font-medium text-slate-600">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -155,7 +217,7 @@ export default function UsersPage() {
                       index % 2 === 0 ? "bg-white" : "bg-slate-50/30"
                     }`}
                   >
-                    <td className="p-3 lg:p-4">
+                    <td className="p-4">
                       <input
                         type="checkbox"
                         checked={selectedUsers.includes(user.id)}
@@ -163,21 +225,21 @@ export default function UsersPage() {
                         className="w-4 h-4 rounded border-slate-200 text-vibrant-blue focus:ring-vibrant-blue"
                       />
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <div className="flex items-center gap-2 lg:gap-3">
-                        <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-slate-50 flex items-center justify-center flex-shrink-0">
-                          <span className="text-xs lg:text-sm font-semibold text-slate-900">
+                    <td className="p-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center flex-shrink-0">
+                          <span className="text-sm font-semibold text-slate-900">
                             {user.name.split(" ").map(n => n[0]).join("")}
                           </span>
                         </div>
                         <div className="min-w-0">
-                          <p className="text-xs lg:text-sm font-medium text-slate-900 truncate">{user.name}</p>
-                          <p className="text-[10px] lg:text-xs text-slate-500 truncate">{user.email}</p>
+                          <p className="text-sm font-medium text-slate-900 truncate">{user.name}</p>
+                          <p className="text-xs text-slate-500 truncate">{user.email}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className={`inline-flex items-center px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-full text-[10px] lg:text-xs font-medium ${
+                    <td className="p-4">
+                      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
                         user.plan === "Enterprise" ? "bg-deep-navy/10 text-deep-navy" :
                         user.plan === "Pro" ? "bg-vibrant-blue/10 text-vibrant-blue" :
                         "bg-slate-50 text-slate-600"
@@ -185,16 +247,16 @@ export default function UsersPage() {
                         {user.plan}
                       </span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className="text-xs lg:text-sm text-slate-700 font-medium">
+                    <td className="p-4">
+                      <span className="text-sm text-slate-700 font-medium">
                         {user.credits.toLocaleString()}
                       </span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className="text-xs lg:text-sm text-slate-700">{user.files}</span>
+                    <td className="p-4">
+                      <span className="text-sm text-slate-700">{user.files}</span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className={`inline-flex items-center px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-full text-[10px] lg:text-xs font-medium ${
+                    <td className="p-4">
+                      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
                         user.status === "active" ? "bg-success/10 text-success" :
                         user.status === "trial" ? "bg-vibrant-blue/10 text-vibrant-blue" :
                         "bg-slate-500/10 text-slate-500"
@@ -202,19 +264,19 @@ export default function UsersPage() {
                         {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
                       </span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className="text-xs lg:text-sm text-slate-600">{user.joined}</span>
+                    <td className="p-4">
+                      <span className="text-sm text-slate-600">{user.joined}</span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <div className="flex items-center justify-end gap-1 lg:gap-2">
-                        <button className="p-1.5 lg:p-2 hover:bg-slate-50 rounded-lg transition-colors" title="View Details">
-                          <Eye className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-slate-600" />
+                    <td className="p-4">
+                      <div className="flex items-center justify-end gap-2">
+                        <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors" title="View Details">
+                          <Eye className="w-4 h-4 text-slate-600" />
                         </button>
-                        <button className="p-1.5 lg:p-2 hover:bg-slate-50 rounded-lg transition-colors" title="Send Email">
-                          <Mail className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-slate-600" />
+                        <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors" title="Send Email">
+                          <Mail className="w-4 h-4 text-slate-600" />
                         </button>
-                        <button className="p-1.5 lg:p-2 hover:bg-error/10 rounded-lg transition-colors" title="Suspend User">
-                          <Ban className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-error" />
+                        <button className="p-2 hover:bg-error/10 rounded-lg transition-colors" title="Suspend User">
+                          <Ban className="w-4 h-4 text-error" />
                         </button>
                       </div>
                     </td>
@@ -225,19 +287,19 @@ export default function UsersPage() {
           </div>
 
           {/* Pagination */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 lg:p-4 border-t border-slate-200">
-            <p className="text-xs lg:text-sm text-slate-600">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 border-t border-slate-200">
+            <p className="text-sm text-slate-600">
               Showing {filteredUsers.length} of {users.length} users
             </p>
-            <div className="flex items-center gap-1 lg:gap-2">
-              <button className="p-1.5 lg:p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors disabled:opacity-50" disabled>
-                <ChevronLeft className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-slate-600" />
+            <div className="flex items-center gap-2">
+              <button className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors disabled:opacity-50" disabled>
+                <ChevronLeft className="w-4 h-4 text-slate-600" />
               </button>
-              <span className="px-2.5 lg:px-3 py-1 rounded-lg bg-vibrant-blue text-white text-xs lg:text-sm font-medium">1</span>
-              <button className="px-2.5 lg:px-3 py-1 rounded-lg hover:bg-slate-50 text-xs lg:text-sm text-slate-600 transition-colors hidden sm:inline-block">2</button>
-              <button className="px-2.5 lg:px-3 py-1 rounded-lg hover:bg-slate-50 text-xs lg:text-sm text-slate-600 transition-colors hidden sm:inline-block">3</button>
-              <button className="p-1.5 lg:p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
-                <ChevronRight className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-slate-600" />
+              <span className="px-3 py-1 rounded-lg bg-vibrant-blue text-white text-sm font-medium">1</span>
+              <button className="px-3 py-1 rounded-lg hover:bg-slate-50 text-sm text-slate-600 transition-colors hidden sm:inline-block">2</button>
+              <button className="px-3 py-1 rounded-lg hover:bg-slate-50 text-sm text-slate-600 transition-colors hidden sm:inline-block">3</button>
+              <button className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
+                <ChevronRight className="w-4 h-4 text-slate-600" />
               </button>
             </div>
           </div>

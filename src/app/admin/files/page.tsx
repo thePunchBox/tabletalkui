@@ -143,11 +143,57 @@ export default function FilesPage() {
         transition={{ delay: 0.4 }}
       >
         <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[800px]">
+          {/* Mobile Card View */}
+          <div className="lg:hidden divide-y divide-slate-200">
+            {filteredFiles.map((file) => (
+              <div key={file.id} className="p-4 space-y-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <input
+                      type="checkbox"
+                      checked={selectedFiles.includes(file.id)}
+                      onChange={() => toggleSelectFile(file.id)}
+                      className="w-4 h-4 rounded border-slate-200 text-vibrant-blue focus:ring-vibrant-blue flex-shrink-0"
+                    />
+                    <div className="p-2 rounded-lg bg-vibrant-blue/10 flex-shrink-0">
+                      <FileSpreadsheet className="w-5 h-5 text-vibrant-blue" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-slate-900 truncate">{file.name}</p>
+                      <p className="text-xs text-slate-500">{file.user}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 flex-shrink-0">
+                    <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors" title="View File">
+                      <Eye className="w-4 h-4 text-slate-600" />
+                    </button>
+                    <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors" title="Download">
+                      <Download className="w-4 h-4 text-slate-600" />
+                    </button>
+                    <button className="p-2 hover:bg-error/10 rounded-lg transition-colors" title="Delete File">
+                      <Trash2 className="w-4 h-4 text-error" />
+                    </button>
+                  </div>
+                </div>
+                <div className="flex flex-wrap items-center gap-3 text-xs text-slate-600 pl-7">
+                  <span>{formatSize(file.size)}</span>
+                  <span className="w-1 h-1 rounded-full bg-slate-300" />
+                  <span>{file.rows.toLocaleString()} rows</span>
+                  <span className="w-1 h-1 rounded-full bg-slate-300" />
+                  <span className="text-vibrant-blue font-medium">{file.queries} queries</span>
+                  <span className="w-1 h-1 rounded-full bg-slate-300" />
+                  <span>{file.uploaded}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className="hidden lg:block">
+            <table className="w-full">
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50">
-                  <th className="text-left p-3 lg:p-4">
+                  <th className="text-left p-4">
                     <input
                       type="checkbox"
                       checked={selectedFiles.length === filteredFiles.length && filteredFiles.length > 0}
@@ -155,13 +201,13 @@ export default function FilesPage() {
                       className="w-4 h-4 rounded border-slate-200 text-vibrant-blue focus:ring-vibrant-blue"
                     />
                   </th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">File Name</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Uploaded By</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Size</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Rows</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Queries</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Uploaded</th>
-                  <th className="text-right p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Actions</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">File Name</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Uploaded By</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Size</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Rows</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Queries</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Uploaded</th>
+                  <th className="text-right p-4 text-sm font-medium text-slate-600">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -172,7 +218,7 @@ export default function FilesPage() {
                       index % 2 === 0 ? "bg-white" : "bg-slate-50/30"
                     }`}
                   >
-                    <td className="p-3 lg:p-4">
+                    <td className="p-4">
                       <input
                         type="checkbox"
                         checked={selectedFiles.includes(file.id)}
@@ -180,49 +226,49 @@ export default function FilesPage() {
                         className="w-4 h-4 rounded border-slate-200 text-vibrant-blue focus:ring-vibrant-blue"
                       />
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <div className="flex items-center gap-2 lg:gap-3">
-                        <div className="p-1.5 lg:p-2 rounded-lg bg-vibrant-blue/10">
-                          <FileSpreadsheet className="w-4 h-4 lg:w-5 lg:h-5 text-vibrant-blue" />
+                    <td className="p-4">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-vibrant-blue/10">
+                          <FileSpreadsheet className="w-5 h-5 text-vibrant-blue" />
                         </div>
-                        <span className="text-xs lg:text-sm font-medium text-slate-900 truncate max-w-[120px] lg:max-w-none">{file.name}</span>
+                        <span className="text-sm font-medium text-slate-900">{file.name}</span>
                       </div>
                     </td>
-                    <td className="p-3 lg:p-4">
+                    <td className="p-4">
                       <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 lg:w-8 lg:h-8 rounded-full bg-slate-50 flex items-center justify-center flex-shrink-0">
-                          <span className="text-[10px] lg:text-xs font-semibold text-slate-900">
+                        <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center flex-shrink-0">
+                          <span className="text-xs font-semibold text-slate-900">
                             {file.user.split(" ").map(n => n[0]).join("")}
                           </span>
                         </div>
                         <div className="min-w-0">
-                          <p className="text-xs lg:text-sm font-medium text-slate-900 truncate">{file.user}</p>
-                          <p className="text-[10px] lg:text-xs text-slate-500 truncate hidden lg:block">{file.email}</p>
+                          <p className="text-sm font-medium text-slate-900 truncate">{file.user}</p>
+                          <p className="text-xs text-slate-500 truncate">{file.email}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className="text-xs lg:text-sm text-slate-700">{formatSize(file.size)}</span>
+                    <td className="p-4">
+                      <span className="text-sm text-slate-700">{formatSize(file.size)}</span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className="text-xs lg:text-sm text-slate-700">{file.rows.toLocaleString()}</span>
+                    <td className="p-4">
+                      <span className="text-sm text-slate-700">{file.rows.toLocaleString()}</span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className="text-xs lg:text-sm font-medium text-vibrant-blue">{file.queries}</span>
+                    <td className="p-4">
+                      <span className="text-sm font-medium text-vibrant-blue">{file.queries}</span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className="text-xs lg:text-sm text-slate-600">{file.uploaded}</span>
+                    <td className="p-4">
+                      <span className="text-sm text-slate-600">{file.uploaded}</span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <div className="flex items-center justify-end gap-1 lg:gap-2">
-                        <button className="p-1.5 lg:p-2 hover:bg-slate-50 rounded-lg transition-colors" title="View File">
-                          <Eye className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-slate-600" />
+                    <td className="p-4">
+                      <div className="flex items-center justify-end gap-2">
+                        <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors" title="View File">
+                          <Eye className="w-4 h-4 text-slate-600" />
                         </button>
-                        <button className="p-1.5 lg:p-2 hover:bg-slate-50 rounded-lg transition-colors" title="Download">
-                          <Download className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-slate-600" />
+                        <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors" title="Download">
+                          <Download className="w-4 h-4 text-slate-600" />
                         </button>
-                        <button className="p-1.5 lg:p-2 hover:bg-error/10 rounded-lg transition-colors" title="Delete File">
-                          <Trash2 className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-error" />
+                        <button className="p-2 hover:bg-error/10 rounded-lg transition-colors" title="Delete File">
+                          <Trash2 className="w-4 h-4 text-error" />
                         </button>
                       </div>
                     </td>

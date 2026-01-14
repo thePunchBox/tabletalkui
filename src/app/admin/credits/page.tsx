@@ -242,19 +242,96 @@ export default function CreditsPage() {
         transition={{ delay: 0.5 }}
       >
         <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[900px]">
+          {/* Mobile Card View */}
+          <div className="lg:hidden divide-y divide-slate-200">
+            {filteredUsers.map((user) => {
+              const remaining = user.creditsLimit === -1 ? -1 : user.creditsLimit - user.creditsUsed;
+              const usagePercent = getUsagePercentage(user.creditsUsed, user.creditsLimit);
+              
+              return (
+                <div key={user.id} className="p-4 space-y-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium text-slate-900 truncate">{user.name}</p>
+                      <p className="text-xs text-slate-500 truncate">{user.email}</p>
+                    </div>
+                    <div className="flex items-center gap-1 flex-shrink-0">
+                      <button className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="View Details">
+                        <Eye className="w-4 h-4" />
+                      </button>
+                      <button className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="Add Credits">
+                        <Plus className="w-4 h-4" />
+                      </button>
+                      <button className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="Reset Credits">
+                        <RefreshCw className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className={`px-2.5 py-1 rounded-lg text-xs font-medium ${
+                      user.plan === "Enterprise" ? "bg-purple-100 text-purple-700" :
+                      user.plan === "Pro" ? "bg-vibrant-blue/10 text-vibrant-blue" :
+                      "bg-slate-100 text-slate-600"
+                    }`}>
+                      {user.plan}
+                    </span>
+                    <span className={`px-2.5 py-1 rounded-lg text-xs font-medium inline-flex items-center gap-1 ${getStatusBadge(user.status)}`}>
+                      {user.status === "critical" && <AlertTriangle className="w-3 h-3" />}
+                      {getStatusText(user.status)}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3 text-center">
+                    <div className="bg-slate-50 rounded-lg p-2">
+                      <p className="text-xs text-slate-500">Limit</p>
+                      <p className="text-sm font-medium text-slate-900">{formatCredits(user.creditsLimit)}</p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-2">
+                      <p className="text-xs text-slate-500">Used</p>
+                      <p className="text-sm font-medium text-slate-700">{formatCredits(user.creditsUsed)}</p>
+                    </div>
+                    <div className="bg-slate-50 rounded-lg p-2">
+                      <p className="text-xs text-slate-500">Left</p>
+                      <p className={`text-sm font-medium ${
+                        remaining !== -1 && remaining < 5000 ? "text-error" :
+                        remaining !== -1 && remaining < 20000 ? "text-warning" :
+                        "text-slate-900"
+                      }`}>{formatCredits(remaining)}</p>
+                    </div>
+                  </div>
+                  {user.creditsLimit !== -1 && (
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 h-2 rounded-full bg-slate-200 overflow-hidden">
+                        <div 
+                          className={`h-full rounded-full ${
+                            usagePercent >= 90 ? "bg-error" :
+                            usagePercent >= 70 ? "bg-warning" :
+                            "bg-success"
+                          }`}
+                          style={{ width: `${usagePercent}%` }}
+                        />
+                      </div>
+                      <span className="text-xs text-slate-500 w-10">{usagePercent}%</span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className="hidden lg:block">
+            <table className="w-full">
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50">
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">User</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Plan</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Limit</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Used</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Remaining</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Usage</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Status</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600 hidden lg:table-cell">Last Used</th>
-                  <th className="text-right p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Actions</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">User</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Plan</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Limit</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Used</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Remaining</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Usage</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Status</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Last Used</th>
+                  <th className="text-right p-4 text-sm font-medium text-slate-600">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -270,14 +347,14 @@ export default function CreditsPage() {
                       transition={{ delay: index * 0.05 }}
                       className="border-b border-slate-100 hover:bg-slate-50/50 transition-colors"
                     >
-                      <td className="p-3 lg:p-4">
+                      <td className="p-4">
                         <div className="min-w-0">
-                          <p className="text-xs lg:text-sm font-medium text-slate-900 truncate">{user.name}</p>
-                          <p className="text-[10px] lg:text-xs text-slate-500 truncate hidden lg:block">{user.email}</p>
+                          <p className="text-sm font-medium text-slate-900 truncate">{user.name}</p>
+                          <p className="text-xs text-slate-500 truncate">{user.email}</p>
                         </div>
                       </td>
-                      <td className="p-3 lg:p-4">
-                        <span className={`px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-lg text-[10px] lg:text-xs font-medium ${
+                      <td className="p-4">
+                        <span className={`px-2.5 py-1 rounded-lg text-xs font-medium ${
                           user.plan === "Enterprise" ? "bg-purple-100 text-purple-700" :
                           user.plan === "Pro" ? "bg-vibrant-blue/10 text-vibrant-blue" :
                           "bg-slate-100 text-slate-600"
@@ -285,18 +362,18 @@ export default function CreditsPage() {
                           {user.plan}
                         </span>
                       </td>
-                      <td className="p-3 lg:p-4">
-                        <span className="text-xs lg:text-sm text-slate-900 font-medium">
+                      <td className="p-4">
+                        <span className="text-sm text-slate-900 font-medium">
                           {formatCredits(user.creditsLimit)}
                         </span>
                       </td>
-                      <td className="p-3 lg:p-4">
-                        <span className="text-xs lg:text-sm text-slate-700">
+                      <td className="p-4">
+                        <span className="text-sm text-slate-700">
                           {formatCredits(user.creditsUsed)}
                         </span>
                       </td>
-                      <td className="p-3 lg:p-4">
-                        <span className={`text-xs lg:text-sm font-medium ${
+                      <td className="p-4">
+                        <span className={`text-sm font-medium ${
                           remaining !== -1 && remaining < 5000 ? "text-error" :
                           remaining !== -1 && remaining < 20000 ? "text-warning" :
                           "text-slate-900"
@@ -304,10 +381,10 @@ export default function CreditsPage() {
                           {formatCredits(remaining)}
                         </span>
                       </td>
-                      <td className="p-3 lg:p-4">
+                      <td className="p-4">
                         {user.creditsLimit !== -1 ? (
-                          <div className="flex items-center gap-1 lg:gap-2">
-                            <div className="w-12 lg:w-20 h-1.5 lg:h-2 rounded-full bg-slate-200 overflow-hidden">
+                          <div className="flex items-center gap-2">
+                            <div className="w-20 h-2 rounded-full bg-slate-200 overflow-hidden">
                               <div 
                                 className={`h-full rounded-full ${
                                   usagePercent >= 90 ? "bg-error" :
@@ -317,34 +394,34 @@ export default function CreditsPage() {
                                 style={{ width: `${usagePercent}%` }}
                               />
                             </div>
-                            <span className="text-[10px] lg:text-xs text-slate-500">{usagePercent}%</span>
+                            <span className="text-xs text-slate-500">{usagePercent}%</span>
                           </div>
                         ) : (
-                          <span className="text-[10px] lg:text-xs text-slate-500">N/A</span>
+                          <span className="text-xs text-slate-500">N/A</span>
                         )}
                       </td>
-                      <td className="p-3 lg:p-4">
-                        <span className={`px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-lg text-[10px] lg:text-xs font-medium inline-flex items-center gap-1 ${getStatusBadge(user.status)}`}>
-                          {user.status === "critical" && <AlertTriangle className="w-2.5 h-2.5 lg:w-3 lg:h-3" />}
-                          <span className="hidden sm:inline">{getStatusText(user.status)}</span>
+                      <td className="p-4">
+                        <span className={`px-2.5 py-1 rounded-lg text-xs font-medium inline-flex items-center gap-1 ${getStatusBadge(user.status)}`}>
+                          {user.status === "critical" && <AlertTriangle className="w-3 h-3" />}
+                          {getStatusText(user.status)}
                         </span>
                       </td>
-                      <td className="p-3 lg:p-4 hidden lg:table-cell">
-                        <span className="text-xs lg:text-sm text-slate-600">{user.lastUsed}</span>
+                      <td className="p-4">
+                        <span className="text-sm text-slate-600">{user.lastUsed}</span>
                       </td>
-                      <td className="p-3 lg:p-4">
-                        <div className="flex items-center justify-end gap-0.5 lg:gap-1">
-                          <button className="p-1.5 lg:p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="View Details">
-                            <Eye className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
+                      <td className="p-4">
+                        <div className="flex items-center justify-end gap-1">
+                          <button className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="View Details">
+                            <Eye className="w-4 h-4" />
                           </button>
-                          <button className="p-1.5 lg:p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="Add Credits">
-                            <Plus className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
+                          <button className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="Add Credits">
+                            <Plus className="w-4 h-4" />
                           </button>
-                          <button className="p-1.5 lg:p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors hidden sm:block" title="Reset Credits">
-                            <RefreshCw className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
+                          <button className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="Reset Credits">
+                            <RefreshCw className="w-4 h-4" />
                           </button>
-                          <button className="p-1.5 lg:p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors hidden sm:block" title="Send Warning">
-                            <Mail className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
+                          <button className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors" title="Send Warning">
+                            <Mail className="w-4 h-4" />
                           </button>
                         </div>
                       </td>
@@ -356,28 +433,26 @@ export default function CreditsPage() {
           </div>
 
           {/* Pagination */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 lg:p-4 border-t border-slate-200">
-            <p className="text-xs lg:text-sm text-slate-600">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 border-t border-slate-200">
+            <p className="text-sm text-slate-600">
               Showing {filteredUsers.length} of {userCredits.length} users
             </p>
-            <div className="flex items-center gap-1 lg:gap-2">
+            <div className="flex items-center gap-2">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="p-1.5 lg:p-2"
               >
-                <ChevronLeft className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
+                <ChevronLeft className="w-4 h-4" />
               </Button>
-              <span className="text-xs lg:text-sm text-slate-600 px-2 lg:px-3">Page {currentPage}</span>
+              <span className="text-sm text-slate-600 px-3">Page {currentPage}</span>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setCurrentPage(p => p + 1)}
-                className="p-1.5 lg:p-2"
               >
-                <ChevronRight className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
+                <ChevronRight className="w-4 h-4" />
               </Button>
             </div>
           </div>

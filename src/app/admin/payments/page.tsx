@@ -232,18 +232,62 @@ export default function PaymentsPage() {
         transition={{ delay: 0.5 }}
       >
         <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[800px]">
+          {/* Mobile Card View */}
+          <div className="lg:hidden divide-y divide-slate-200">
+            {filteredPayments.map((payment) => (
+              <div key={payment.id} className="p-4 space-y-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium text-slate-900 truncate">{payment.user}</p>
+                    <p className="text-xs text-slate-500 font-mono">{payment.id}</p>
+                  </div>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <span className="text-lg font-semibold text-slate-900">${payment.amount}</span>
+                    <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors" title="View Details">
+                      <Eye className="w-4 h-4 text-slate-600" />
+                    </button>
+                    {payment.status === "completed" && (
+                      <button className="p-2 hover:bg-warning/10 rounded-lg transition-colors" title="Refund">
+                        <RefreshCw className="w-4 h-4 text-warning" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                    payment.plan === "Enterprise" ? "bg-deep-navy/10 text-deep-navy" :
+                    payment.plan === "Pro" ? "bg-vibrant-blue/10 text-vibrant-blue" :
+                    "bg-slate-50 text-slate-600"
+                  }`}>
+                    {payment.plan}
+                  </span>
+                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${getStatusColor(payment.status)}`}>
+                    {getStatusIcon(payment.status)}
+                    {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
+                  </span>
+                </div>
+                <div className="flex flex-wrap items-center gap-3 text-xs text-slate-600">
+                  <span>{payment.method}</span>
+                  <span className="w-1 h-1 rounded-full bg-slate-300" />
+                  <span>{payment.date}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className="hidden lg:block">
+            <table className="w-full">
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50">
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Transaction ID</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">User</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Plan</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Amount</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Status</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Method</th>
-                  <th className="text-left p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Date</th>
-                  <th className="text-right p-3 lg:p-4 text-xs lg:text-sm font-medium text-slate-600">Actions</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Transaction ID</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">User</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Plan</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Amount</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Status</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Method</th>
+                  <th className="text-left p-4 text-sm font-medium text-slate-600">Date</th>
+                  <th className="text-right p-4 text-sm font-medium text-slate-600">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -254,17 +298,17 @@ export default function PaymentsPage() {
                       index % 2 === 0 ? "bg-white" : "bg-slate-50/30"
                     }`}
                   >
-                    <td className="p-3 lg:p-4">
-                      <span className="text-xs lg:text-sm font-mono text-slate-900">{payment.id}</span>
+                    <td className="p-4">
+                      <span className="text-sm font-mono text-slate-900">{payment.id}</span>
                     </td>
-                    <td className="p-3 lg:p-4">
+                    <td className="p-4">
                       <div className="min-w-0">
-                        <p className="text-xs lg:text-sm font-medium text-slate-900 truncate">{payment.user}</p>
-                        <p className="text-[10px] lg:text-xs text-slate-500 truncate hidden lg:block">{payment.email}</p>
+                        <p className="text-sm font-medium text-slate-900 truncate">{payment.user}</p>
+                        <p className="text-xs text-slate-500 truncate">{payment.email}</p>
                       </div>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className={`inline-flex items-center px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-full text-[10px] lg:text-xs font-medium ${
+                    <td className="p-4">
+                      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
                         payment.plan === "Enterprise" ? "bg-deep-navy/10 text-deep-navy" :
                         payment.plan === "Pro" ? "bg-vibrant-blue/10 text-vibrant-blue" :
                         "bg-slate-50 text-slate-600"
@@ -272,29 +316,29 @@ export default function PaymentsPage() {
                         {payment.plan}
                       </span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className="text-xs lg:text-sm font-semibold text-slate-900">${payment.amount}</span>
+                    <td className="p-4">
+                      <span className="text-sm font-semibold text-slate-900">${payment.amount}</span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className={`inline-flex items-center gap-1 lg:gap-1.5 px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-full text-[10px] lg:text-xs font-medium ${getStatusColor(payment.status)}`}>
+                    <td className="p-4">
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${getStatusColor(payment.status)}`}>
                         {getStatusIcon(payment.status)}
-                        <span className="hidden sm:inline">{payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}</span>
+                        {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
                       </span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className="text-xs lg:text-sm text-slate-600 truncate">{payment.method}</span>
+                    <td className="p-4">
+                      <span className="text-sm text-slate-600">{payment.method}</span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <span className="text-xs lg:text-sm text-slate-600">{payment.date}</span>
+                    <td className="p-4">
+                      <span className="text-sm text-slate-600">{payment.date}</span>
                     </td>
-                    <td className="p-3 lg:p-4">
-                      <div className="flex items-center justify-end gap-1 lg:gap-2">
-                        <button className="p-1.5 lg:p-2 hover:bg-slate-50 rounded-lg transition-colors" title="View Details">
-                          <Eye className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-slate-600" />
+                    <td className="p-4">
+                      <div className="flex items-center justify-end gap-2">
+                        <button className="p-2 hover:bg-slate-50 rounded-lg transition-colors" title="View Details">
+                          <Eye className="w-4 h-4 text-slate-600" />
                         </button>
                         {payment.status === "completed" && (
-                          <button className="p-1.5 lg:p-2 hover:bg-warning/10 rounded-lg transition-colors" title="Refund">
-                            <RefreshCw className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-warning" />
+                          <button className="p-2 hover:bg-warning/10 rounded-lg transition-colors" title="Refund">
+                            <RefreshCw className="w-4 h-4 text-warning" />
                           </button>
                         )}
                       </div>
@@ -306,18 +350,18 @@ export default function PaymentsPage() {
           </div>
 
           {/* Pagination */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 lg:p-4 border-t border-slate-200">
-            <p className="text-xs lg:text-sm text-slate-600">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 border-t border-slate-200">
+            <p className="text-sm text-slate-600">
               Showing {filteredPayments.length} of {payments.length} transactions
             </p>
-            <div className="flex items-center gap-1 lg:gap-2">
-              <button className="p-1.5 lg:p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors disabled:opacity-50" disabled>
-                <ChevronLeft className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-slate-600" />
+            <div className="flex items-center gap-2">
+              <button className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors disabled:opacity-50" disabled>
+                <ChevronLeft className="w-4 h-4 text-slate-600" />
               </button>
-              <span className="px-2.5 lg:px-3 py-1 rounded-lg bg-vibrant-blue text-white text-xs lg:text-sm font-medium">1</span>
-              <button className="px-2.5 lg:px-3 py-1 rounded-lg hover:bg-slate-50 text-xs lg:text-sm text-slate-600 transition-colors hidden sm:inline-block">2</button>
-              <button className="p-1.5 lg:p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
-                <ChevronRight className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-slate-600" />
+              <span className="px-3 py-1 rounded-lg bg-vibrant-blue text-white text-sm font-medium">1</span>
+              <button className="px-3 py-1 rounded-lg hover:bg-slate-50 text-sm text-slate-600 transition-colors hidden sm:inline-block">2</button>
+              <button className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
+                <ChevronRight className="w-4 h-4 text-slate-600" />
               </button>
             </div>
           </div>
