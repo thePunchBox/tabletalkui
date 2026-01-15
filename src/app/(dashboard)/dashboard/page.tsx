@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -16,12 +16,18 @@ import {
   Clock,
   FileSpreadsheet,
   CreditCard,
+  Receipt,
+  Calendar,
+  Plus,
+  X,
+  Check,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { dashboardStats, tablesData, chatHistory, currentUser } from "@/lib/mock-data";
+import { Input } from "@/components/ui/input";
+import { dashboardStats, tablesData, chatHistory, currentUser, userSubscription, userPaymentMethods } from "@/lib/mock-data";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -38,6 +44,8 @@ const staggerContainer = {
 
 export default function UserDashboardPage() {
   const creditsUsedPercent = (dashboardStats.tokensUsed / dashboardStats.planLimit) * 100;
+  const [showAddCard, setShowAddCard] = useState(false);
+  const [paymentMethods, setPaymentMethods] = useState(userPaymentMethods);
 
   return (
     <div className="space-y-6 page-transition">
@@ -116,6 +124,198 @@ export default function UserDashboardPage() {
           </div>
         </Card>
       </motion.div>
+
+      {/* Subscription & Payment Section */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Current Subscription / Invoice */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+        >
+          <Card className="h-full">
+            <CardHeader className="flex flex-row items-center justify-between border-b border-slate-200">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Receipt className="w-5 h-5 text-vibrant-blue" />
+                Subscription Details
+              </CardTitle>
+              <Badge variant="ready">Active</Badge>
+            </CardHeader>
+            <CardContent className="pt-4">
+              <div className="space-y-4">
+                {/* Package Info */}
+                <div className="p-4 rounded-xl bg-gradient-to-r from-vibrant-blue/5 to-purple-500/5 border border-vibrant-blue/20">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <Crown className="w-5 h-5 text-vibrant-blue" />
+                      <span className="font-semibold text-slate-900">{userSubscription.planName}</span>
+                    </div>
+                    <span className="text-xl font-bold text-slate-900">{userSubscription.price}</span>
+                  </div>
+                  <p className="text-sm text-slate-600">{userSubscription.billingCycle}</p>
+                </div>
+
+                {/* Invoice Details */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between py-2 border-b border-slate-100">
+                    <span className="text-sm text-slate-600">Invoice Number</span>
+                    <span className="text-sm font-medium text-slate-900">{userSubscription.invoiceNumber}</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2 border-b border-slate-100">
+                    <span className="text-sm text-slate-600">Last Payment</span>
+                    <span className="text-sm font-medium text-slate-900">{userSubscription.lastPaymentDate}</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2 border-b border-slate-100">
+                    <span className="text-sm text-slate-600">Amount Paid</span>
+                    <span className="text-sm font-medium text-success">{userSubscription.amountPaid}</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2">
+                    <span className="text-sm text-slate-600 flex items-center gap-1">
+                      <Calendar className="w-4 h-4" />
+                      Renewal Date
+                    </span>
+                    <span className="text-sm font-medium text-slate-900">{userSubscription.renewalDate}</span>
+                  </div>
+                </div>
+
+                {/* Days Remaining */}
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-slate-600">Days until renewal</span>
+                    <span className="text-sm font-semibold text-vibrant-blue">{userSubscription.daysRemaining} days</span>
+                  </div>
+                  <Progress value={(30 - userSubscription.daysRemaining) / 30 * 100} variant="default" />
+                </div>
+
+                <div className="flex gap-2 pt-2">
+                  <Button variant="secondary" size="sm" asChild className="flex-1">
+                    <Link href="/settings/billing">
+                      View Invoices
+                    </Link>
+                  </Button>
+                  <Button variant="ghost" size="sm" asChild className="flex-1">
+                    <Link href="/pricing">
+                      Upgrade Plan
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Payment Methods */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <Card className="h-full">
+            <CardHeader className="flex flex-row items-center justify-between border-b border-slate-200">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <CreditCard className="w-5 h-5 text-success" />
+                Payment Methods
+              </CardTitle>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setShowAddCard(!showAddCard)}
+                className="text-vibrant-blue"
+              >
+                {showAddCard ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4 mr-1" />}
+                {showAddCard ? "" : "Add New"}
+              </Button>
+            </CardHeader>
+            <CardContent className="pt-4">
+              <div className="space-y-3">
+                {/* Add New Card Form */}
+                {showAddCard && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="p-4 rounded-xl border border-vibrant-blue/30 bg-vibrant-blue/5 mb-4"
+                  >
+                    <h4 className="text-sm font-medium text-slate-900 mb-3">Add New Card</h4>
+                    <div className="space-y-3">
+                      <Input placeholder="Card Number" className="text-sm" />
+                      <div className="grid grid-cols-2 gap-3">
+                        <Input placeholder="MM/YY" className="text-sm" />
+                        <Input placeholder="CVC" className="text-sm" />
+                      </div>
+                      <Input placeholder="Cardholder Name" className="text-sm" />
+                      <div className="flex gap-2 pt-1">
+                        <Button size="sm" className="flex-1">
+                          <Check className="w-4 h-4 mr-1" />
+                          Save Card
+                        </Button>
+                        <Button variant="ghost" size="sm" onClick={() => setShowAddCard(false)}>
+                          Cancel
+                        </Button>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Existing Payment Methods */}
+                {paymentMethods.map((method, index) => (
+                  <div
+                    key={method.id}
+                    className={`flex items-center justify-between p-3 rounded-xl transition-colors ${
+                      method.isDefault 
+                        ? "bg-vibrant-blue/5 border border-vibrant-blue/20" 
+                        : "bg-slate-50 border border-slate-200 hover:bg-slate-100"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg ${method.isDefault ? "bg-vibrant-blue/10" : "bg-white border border-slate-200"}`}>
+                        <CreditCard className={`w-5 h-5 ${method.isDefault ? "text-vibrant-blue" : "text-slate-500"}`} />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="font-medium text-slate-900 text-sm">{method.brand}</p>
+                          {method.isDefault && (
+                            <Badge variant="ready" className="text-xs py-0">Default</Badge>
+                          )}
+                        </div>
+                        <p className="text-xs text-slate-600">
+                          •••• {method.last4} • Expires {method.expiryDate}
+                        </p>
+                      </div>
+                    </div>
+                    <Button variant="ghost" size="sm" className="text-slate-500 hover:text-slate-900">
+                      Edit
+                    </Button>
+                  </div>
+                ))}
+
+                {/* Add Payment Method Prompt */}
+                {paymentMethods.length === 0 && !showAddCard && (
+                  <div className="text-center py-8">
+                    <CreditCard className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+                    <p className="text-sm text-slate-600 mb-3">No payment methods added yet</p>
+                    <Button size="sm" onClick={() => setShowAddCard(true)}>
+                      <Plus className="w-4 h-4 mr-1" />
+                      Add Payment Method
+                    </Button>
+                  </div>
+                )}
+
+                {/* Billing Settings Link */}
+                <div className="pt-3 mt-3 border-t border-slate-200">
+                  <Link 
+                    href="/settings/billing" 
+                    className="text-sm text-vibrant-blue hover:text-vibrant-blue-light flex items-center gap-1 transition-colors"
+                  >
+                    Manage billing settings
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
 
       {/* Stats Grid */}
       <motion.div

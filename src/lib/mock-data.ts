@@ -12,6 +12,58 @@ export const currentUser = {
 };
 
 // ========================================
+// User Subscription / Invoice Data
+// ========================================
+
+export const userSubscription = {
+  planName: "Pro Plan",
+  price: "$29.00",
+  billingCycle: "Billed monthly",
+  invoiceNumber: "INV-2026-001",
+  lastPaymentDate: "Jan 15, 2026",
+  amountPaid: "$29.00",
+  renewalDate: "Feb 15, 2026",
+  daysRemaining: 31,
+  status: "active",
+  features: [
+    "Unlimited tables",
+    "200K tokens/month",
+    "Priority support",
+    "Advanced analytics",
+    "API access",
+  ],
+};
+
+// ========================================
+// Payment Methods
+// ========================================
+
+export interface PaymentMethod {
+  id: string;
+  brand: string;
+  last4: string;
+  expiryDate: string;
+  isDefault: boolean;
+}
+
+export const userPaymentMethods: PaymentMethod[] = [
+  {
+    id: "pm_1",
+    brand: "Visa",
+    last4: "4242",
+    expiryDate: "12/2026",
+    isDefault: true,
+  },
+  {
+    id: "pm_2",
+    brand: "Mastercard",
+    last4: "8888",
+    expiryDate: "08/2027",
+    isDefault: false,
+  },
+];
+
+// ========================================
 // Dashboard Stats
 // ========================================
 
