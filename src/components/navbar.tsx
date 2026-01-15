@@ -11,6 +11,7 @@ const navLinks = [
   { name: "Features", href: "/#features" },
   { name: "How it Works", href: "/#how-it-works" },
   { name: "Pricing", href: "/pricing" },
+  { name: "About", href: "/about" },
 ];
 
 export function Navbar() {
@@ -31,33 +32,30 @@ export function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled
-            ? "bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-sm"
-            : "bg-transparent"
-        )}
+        className="fixed top-0 left-0 right-0 z-50 pt-4 px-4"
       >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+        <nav className="max-w-7xl mx-auto">
+          <div className={cn(
+            "flex items-center justify-between px-6 py-3 rounded-full transition-all duration-300",
+            isScrolled 
+              ? "bg-white/95 backdrop-blur-lg border border-slate-200 shadow-lg" 
+              : "bg-white border border-slate-200 shadow-md"
+          )}>
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="relative">
-                <div className="absolute inset-0 bg-vibrant-blue/20 blur-xl group-hover:bg-vibrant-blue/30 transition-all" />
-                <Sparkles className="relative w-7 h-7 text-vibrant-blue" />
-              </div>
-              <span className="text-xl font-bold text-slate-900">
-                TableTalk<span className="text-vibrant-blue">AI</span>
+            <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <Sparkles className="w-5 h-5 text-vibrant-blue" />
+              <span className="text-lg font-bold text-slate-900">
+                TableTalk AI
               </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-1 bg-slate-50 rounded-full px-2 py-1.5">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium"
+                  className="text-sm text-slate-600 hover:text-slate-900 hover:bg-white transition-all font-medium px-4 py-2 rounded-full"
                 >
                   {link.name}
                 </Link>
@@ -65,15 +63,15 @@ export function Navbar() {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-3">
               <Link
                 href="/auth/login"
-                className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium"
+                className="text-sm text-slate-600 hover:text-slate-900 transition-colors font-medium px-4 py-2 rounded-full hover:bg-slate-50"
               >
-                Login
+                Log In
               </Link>
-              <Button asChild size="sm">
-                <Link href="/auth/register">Get Started</Link>
+              <Button asChild size="sm" className="bg-vibrant-blue hover:bg-blue-600 text-white font-medium px-5 rounded-full shadow-sm">
+                <Link href="/auth/register">Sign Up</Link>
               </Button>
             </div>
 
