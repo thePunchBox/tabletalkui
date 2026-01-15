@@ -59,8 +59,8 @@ export default function CheckoutPage({
     // Simulate payment processing
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsProcessing(false);
-    // Redirect to success page or dashboard
-    window.location.href = "/dashboard?payment=success";
+    // Redirect to success page
+    window.location.href = `/checkout/success?plan=${selectedPlan.name}`;
   };
 
   return (

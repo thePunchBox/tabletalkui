@@ -180,7 +180,7 @@ export default function LoginPage() {
                 />
                 Remember me
               </label>
-              <Link href="#" className="text-sm text-vibrant-blue hover:underline">
+              <Link href="/auth/forgot-password" className="text-sm text-vibrant-blue hover:underline">
                 Forgot password?
               </Link>
             </div>

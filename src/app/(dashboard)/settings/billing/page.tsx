@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 const tabs = [
   { id: "profile", label: "Profile", icon: User, href: "/settings/profile" },
   { id: "billing", label: "Billing", icon: CreditCard, href: "/settings/billing" },
-  { id: "security", label: "Security", icon: Shield, href: "#" },
+  { id: "security", label: "Security", icon: Shield, href: "/settings/security" },
 ];
 
 const planFeatures = [
