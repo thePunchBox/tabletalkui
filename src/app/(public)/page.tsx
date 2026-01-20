@@ -19,6 +19,11 @@ import {
   Coins,
   Table,
   Users,
+  ShoppingCart,
+  Banknote,
+  TrendingUp,
+  Headphones,
+  Activity,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -60,6 +65,176 @@ const features = [
     title: "Visual Insights",
     description:
       "Automatically generate charts and visualizations as part of your conversation responses.",
+  },
+];
+
+
+
+// Use Cases data with Rich Visuals
+const useCases = [
+  {
+    title: "E-commerce Analytics",
+    description: "Track sales trends and inventory in real-time.",
+    colSpan: "lg:col-span-1",
+    visual: (
+      <div className="w-full h-full p-6 flex flex-col justify-center">
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500">Top Products</span>
+            <span className="text-xs text-vibrant-blue font-medium cursor-pointer">View All</span>
+          </div>
+          <div className="space-y-2">
+            {[
+              { name: "Wireless Earbuds", sales: "$12,450", growth: "+12%" },
+              { name: "Smart Watch Gen 4", sales: "$8,320", growth: "+5%" },
+              { name: "Ergo Office Chair", sales: "$6,100", growth: "+8%" },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-slate-50 border border-slate-100">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded bg-white border border-slate-200 flex items-center justify-center">
+                    <ShoppingCart className="w-3 h-3 text-slate-400" />
+                  </div>
+                  <span className="text-[10px] font-medium text-slate-700">{item.name}</span>
+                </div>
+                <div className="text-right">
+                  <div className="text-[10px] font-bold text-slate-900">{item.sales}</div>
+                  <div className="text-[8px] text-success font-medium">{item.growth}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: "Financial Reporting",
+    description: "Instant P&L breakdowns and cash flow analysis.",
+    colSpan: "lg:col-span-2",
+    visual: (
+      <div className="w-full h-full p-6 flex items-center justify-center">
+        <div className="w-full grid grid-cols-2 gap-4">
+          <div className="space-y-4">
+            <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div className="flex items-start justify-between mb-2">
+                <div className="p-2 bg-success/10 rounded-lg">
+                  <Banknote className="w-4 h-4 text-success" />
+                </div>
+                <span className="px-2 py-0.5 bg-success/10 text-success text-[10px] font-bold rounded-full">+24%</span>
+              </div>
+              <div className="text-2xl font-bold text-slate-900">$124.5k</div>
+              <div className="text-xs text-slate-500">Total Revenue</div>
+            </div>
+            <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div className="flex items-start justify-between mb-2">
+                <div className="p-2 bg-vibrant-blue/10 rounded-lg">
+                  <Activity className="w-4 h-4 text-vibrant-blue" />
+                </div>
+                <span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-full">Avg</span>
+              </div>
+              <div className="text-2xl font-bold text-slate-900">82%</div>
+              <div className="text-xs text-slate-500">Gross Margin</div>
+            </div>
+          </div>
+
+          <div className="bg-slate-50 rounded-xl border border-slate-200 p-4 flex flex-col justify-end">
+            <div className="flex gap-2 h-32">
+              {[40, 65, 45, 80, 55, 90, 75].map((h, i) => (
+                <div key={i} className="flex-1 bg-blue-50 rounded-t-sm relative h-full group overflow-hidden">
+                  <div
+                    className="absolute bottom-0 left-0 right-0 bg-blue-500 rounded-t-sm transition-all duration-500 hover:bg-blue-600"
+                    style={{ height: `${h}%` }}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 flex justify-between text-[10px] text-slate-400 font-medium">
+              <span>Mon</span>
+              <span>Sun</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: "Marketing Campaigns",
+    description: "Visualize ROI across all your channels instantly.",
+    colSpan: "lg:col-span-1",
+    visual: (
+      <div className="w-full h-full p-6 flex flex-col justify-center items-center">
+        <div className="relative w-40 h-40">
+          <svg viewBox="0 0 100 100" className="transform -rotate-90 w-full h-full">
+            <circle cx="50" cy="50" r="40" stroke="#f1f5f9" strokeWidth="8" fill="transparent" />
+            <circle cx="50" cy="50" r="40" stroke="#3b82f6" strokeWidth="8" fill="transparent" strokeDasharray="200" strokeDashoffset="60" className="text-vibrant-blue" />
+            <circle cx="50" cy="50" r="40" stroke="#10b981" strokeWidth="8" fill="transparent" strokeDasharray="140" strokeDashoffset="310" className="text-success" />
+          </svg>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-2xl font-bold text-slate-900">4.2x</span>
+            <span className="text-xs text-slate-500">ROI</span>
+          </div>
+        </div>
+        <div className="flex gap-4 mt-4">
+          <div className="flex items-center gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-vibrant-blue" />
+            <span className="text-[10px] text-slate-600 font-medium">Google Ads</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-success" />
+            <span className="text-[10px] text-slate-600 font-medium">Social</span>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: "Customer Support",
+    description: "Analyze ticket trends and resolution times.",
+    colSpan: "lg:col-span-1",
+    visual: (
+      <div className="w-full h-full p-6 flex flex-col justify-center space-y-3">
+        <div className="flex gap-3">
+          <div className="w-6 h-6 rounded-full bg-slate-200 flex-shrink-0" />
+          <div className="bg-slate-100 rounded-2xl rounded-tl-sm p-3 text-[10px] text-slate-600">
+            Why are returns spiking this week?
+          </div>
+        </div>
+        <div className="flex gap-3 flex-row-reverse">
+          <div className="w-6 h-6 rounded-full bg-vibrant-blue flex items-center justify-center flex-shrink-0">
+            <Sparkles className="w-3 h-3 text-white" />
+          </div>
+          <div className="bg-vibrant-blue/5 border border-vibrant-blue/10 rounded-2xl rounded-tr-sm p-3 text-[10px] text-slate-700">
+            <span className="font-semibold block mb-1 text-vibrant-blue">Analysis Complete</span>
+            Most returns are cited as "Shipping Damage" for the new ceramic SKU.
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: "Healthcare Trends",
+    description: "Example: Patient readmission rates vs. staffing levels.",
+    colSpan: "lg:col-span-1",
+    visual: (
+      <div className="w-full h-full p-6 flex items-center justify-center">
+        <div className="w-full bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h4 className="text-xs font-bold text-slate-900">Patient Vitals</h4>
+              <p className="text-[10px] text-slate-500">Last 24 Hours</p>
+            </div>
+            <div className="bg-red-50 text-red-500 px-2 py-0.5 rounded text-[10px] font-bold animate-pulse">
+              Live
+            </div>
+          </div>
+          <div className="h-20 w-full flex items-end gap-1">
+            {[30, 45, 35, 60, 40, 75, 50, 65, 45, 55, 35, 40].map((h, i) => (
+              <div key={i} className="flex-1 bg-red-400 rounded-full opacity-80" style={{ height: `${h}%` }} />
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
   },
 ];
 
@@ -180,9 +355,9 @@ export default function LandingPage() {
                     <ArrowRight className="w-5 h-5" />
                   </Link>
                 </Button>
-                <Button 
-                  variant="ghost" 
-                  size="lg" 
+                <Button
+                  variant="ghost"
+                  size="lg"
                   className="text-slate-700 border-2 border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all text-base px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
                 >
                   <Play className="w-5 h-5 mr-2" />
@@ -207,9 +382,9 @@ export default function LandingPage() {
               className="relative hidden lg:block"
               style={{ perspective: "2500px" }}
             >
-              <div 
+              <div
                 className="relative"
-                style={{ 
+                style={{
                   transform: "rotateY(-15deg) rotateX(5deg)",
                   transformStyle: "preserve-3d"
                 }}
@@ -256,7 +431,7 @@ export default function LandingPage() {
                             </div>
                           </div>
                         </div>
-                        
+
                         {/* Credits Progress */}
                         <div className="bg-white rounded-lg p-2 mt-2">
                           <div className="flex items-center justify-between mb-1.5">
@@ -284,7 +459,7 @@ export default function LandingPage() {
                         <p className="text-lg font-bold text-slate-900">12</p>
                         <p className="text-[9px] text-slate-600">Uploaded Tables</p>
                       </div>
-                      
+
                       <div className="bg-white rounded-lg p-2.5 border border-slate-200 shadow-sm">
                         <div className="flex items-start justify-between mb-1">
                           <div className="p-1.5 rounded-lg bg-success/10">
@@ -294,7 +469,7 @@ export default function LandingPage() {
                         <p className="text-lg font-bold text-slate-900">847</p>
                         <p className="text-[9px] text-slate-600">Total Queries</p>
                       </div>
-                      
+
                       <div className="bg-white rounded-lg p-2.5 border border-slate-200 shadow-sm">
                         <div className="flex items-start justify-between mb-1">
                           <div className="p-1.5 rounded-lg bg-warning/10">
@@ -680,6 +855,77 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Use Cases Section */}
+      <section id="use-cases" className="relative py-20 lg:py-32 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={staggerContainer}
+            className="text-center mb-16"
+          >
+            <motion.div variants={fadeInUp} className="pill-label mx-auto w-fit mb-6">
+              <span>USE CASES</span>
+            </motion.div>
+            <motion.h2
+              variants={fadeInUp}
+              className="text-3xl lg:text-4xl font-bold text-deep-navy"
+            >
+              Built for every
+              <br />
+              <span className="gradient-text">industry and team</span>
+            </motion.h2>
+            <motion.p
+              variants={fadeInUp}
+              className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto"
+            >
+              From sales to support, TableTalk AI adapts to your specific data needs.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          >
+            {useCases.map((useCase, index) => (
+              <motion.div
+                key={useCase.title}
+                variants={fadeInUp}
+                transition={{ delay: index * 0.1 }}
+                className={`${useCase.colSpan || "col-span-1"}`}
+              >
+                <Card
+                  variant="elevated"
+                  className="h-full overflow-hidden hover:shadow-xl transition-all duration-500 border-0 shadow-lg bg-white flex flex-col rounded-[2rem]"
+                >
+                  {/* Visual Area */}
+                  <div className="h-64 bg-gradient-to-b from-blue-50 via-white to-white border-b border-blue-100/30 relative group overflow-hidden">
+                    {useCase.visual}
+
+                    {/* Hover Overlay Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                  </div>
+
+                  {/* Content Area */}
+                  <div className="p-6 flex-1 flex flex-col">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">
+                      {useCase.title}
+                    </h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      {useCase.description}
+                    </p>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* How it Works Section */}
       <section id="how-it-works" className="relative py-20 lg:py-32 bg-bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -880,9 +1126,8 @@ export default function LandingPage() {
               >
                 <Card
                   variant="elevated"
-                  className={`p-6 lg:p-8 h-full relative ${
-                    plan.popular ? "ring-2 ring-vibrant-blue shadow-glow" : ""
-                  }`}
+                  className={`p-6 lg:p-8 h-full relative ${plan.popular ? "ring-2 ring-vibrant-blue shadow-glow" : ""
+                    }`}
                 >
                   {plan.popular && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-vibrant-blue text-white text-xs font-medium rounded-full shadow-md">
@@ -934,12 +1179,12 @@ export default function LandingPage() {
                 <div className="absolute -top-24 -right-24 w-96 h-96 bg-white rounded-full blur-3xl" />
                 <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-white rounded-full blur-3xl" />
               </div>
-              
+
               <div className="relative z-10 p-8 sm:p-12 lg:p-16 text-center text-white">
                 <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-white/20 backdrop-blur-sm rounded-2xl mb-4 sm:mb-6">
                   <FileSpreadsheet className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                 </div>
-                
+
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight px-4">
                   Let&apos;s make data analysis
                   <br className="hidden sm:block" />
@@ -949,11 +1194,11 @@ export default function LandingPage() {
                   Upload your first file and start asking questions in plain English.
                   No technical skills required.
                 </p>
-                
+
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4">
-                  <Button 
-                    asChild 
-                    size="lg" 
+                  <Button
+                    asChild
+                    size="lg"
                     className="bg-white text-vibrant-blue hover:bg-slate-50 shadow-lg text-base px-6 sm:px-8 py-5 sm:py-6 font-semibold rounded-xl w-full sm:w-auto"
                   >
                     <Link href="/auth/register" className="flex items-center justify-center gap-2 text-vibrant-blue">
@@ -961,16 +1206,16 @@ export default function LandingPage() {
                       <ArrowRight className="w-5 h-5" />
                     </Link>
                   </Button>
-                  <Button 
+                  <Button
                     asChild
-                    variant="ghost" 
+                    variant="ghost"
                     size="lg"
                     className="text-white border-2 border-white/40 hover:bg-white/10 text-base px-6 sm:px-8 py-5 sm:py-6 rounded-xl w-full sm:w-auto"
                   >
                     <Link href="/pricing">View Pricing</Link>
                   </Button>
                 </div>
-                
+
                 <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm">
                   <div className="flex items-center gap-2">
                     <Check className="w-5 h-5" />
